@@ -1,0 +1,61 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+    <script>
+       window.onload=function(){
+          var city=document.getElementById('aqi-city-input'),
+              air=document.getElementById('aqi-value-input'),
+              btn=document.getElementById('add-btn'),
+              table=document.getElementById('aqi-table');
+         function x(){
+            var arr=[];
+            if(!city.value.match(/^[A-Za-z\u4E00-\u9FA5]+$/)){
+               alert("城市名必须为中英文字符！")
+               return;
+            }
+            if(!air.value.match(/^\d+$/)) {
+               alert("空气质量指数必须为整数！")
+               return;
+            }
+            arr.push(city.value,air.value);
+            return arr;
+         }
+         function a(arr){
+            if(table.children.length==0){
+               var tr1=document.createElement('tr');
+               tr1.innerHTML='<td>城市名称</td><td>空气质量指数</td><td>操作</td>'
+               table.appendChild(tr1);
+            }
+            var tr=document.createElement('tr');
+            tr.innerHTML=`<td>${arr[0]}</td><td>${arr[1]}</td><td><button class="btn">删除</button></td>`;
+            table.appendChild(tr);
+            var bbn=table.getElementsByTagName('button');
+            for(var i=0;i<bbn.length;i++){
+               bbn[i].onclick=function(){
+                  table.removeChild(this.parentNode.parentNode);
+               }
+            }
+         }
+         function c(){
+            var q=x();
+            a(q);
+         }
+         btn.onclick=c;
+     }
+    </script>
+  </head>
+<body>
+
+  <div>
+    <label>城市名称：<input id="aqi-city-input" type="text"></label><br>
+    <label>空气质量指数：<input id="aqi-value-input" type="text"></label><br>
+    <button id="add-btn">确认添加</button>
+  </div>
+  <table border='1' id="aqi-table">
+
+  </table>
+
+</body>
+</html>
