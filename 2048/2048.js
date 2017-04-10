@@ -92,7 +92,7 @@ function up(){
                         arr[i][x].innerHTML = '';
                     } else if (arr[i][x].innerHTML === arr[i-1][x].innerHTML){
                         if (t != -1){
-                            if (i == 2){
+                            if (i <= 2){
                                 var num = arr[i][x].firstChild.innerHTML - 0;
                                 arr[i-1][x].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
                                 arr[i][x].innerHTML = '';
@@ -127,7 +127,7 @@ function down(){
                         arr[i][x].innerHTML = '';
                     } else if (arr[i][x].innerHTML === arr[i+1][x].innerHTML){
                         if (t != -1){
-                            if (i == 1){
+                            if (i >= 1){
                                 var num = arr[i][x].firstChild.innerHTML - 0;
                                 arr[i+1][x].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
                                 arr[i][x].innerHTML = '';
@@ -164,7 +164,7 @@ function left(){
                         } 
                         else if (e[i].innerHTML === e[i+1].innerHTML){
                             if (t != -1){
-                                if (i == 1){
+                                if (i >= 1){
                                     var num = e[i+1].firstChild.innerHTML - 0;
                                     e[i].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
                                     e[i+1].innerHTML = '';
@@ -201,7 +201,7 @@ function right(){
                     }
                     else if (el[i].innerHTML === el[i+1].innerHTML){
                         if (t != -1){
-                            if (i == 1){
+                            if (i <= 1){
                                     var num = el[i].firstChild.innerHTML - 0;
                                     el[i+1].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
                                     el[i].innerHTML = '';
