@@ -81,32 +81,30 @@ function initials(){
 
 //上移动
 function up(){
-    for (var j = 1; j < arr.length; j ++){
+    for (var j = 0; j < arr.length; j ++){
         var t = -1;
-        for (var x = 0 ; x < arr.length ; x ++){
-            if (arr[j][x].innerHTML !== ''){
-                for (var i = j; i >= 1; i--){
-                    if (arr[i-1][x].innerHTML === ''){
-                        var num = arr[i][x].innerHTML;
-                        arr[i-1][x].innerHTML = num;
-                        arr[i][x].innerHTML = '';
-                    } else if (arr[i][x].innerHTML === arr[i-1][x].innerHTML){
+        for (var x = 1; x < arr.length ; x ++){
+            if (arr[x][j].innerHTML !== ''){
+                for (var i = x; i >= 1; i--){
+                    if (arr[i-1][j].innerHTML === ''){
+                        var num = arr[i][j].innerHTML;
+                        arr[i-1][j].innerHTML = num;
+                        arr[i][j].innerHTML = '';
+                    } 
+                    else 
+                    if (arr[i][j].innerHTML === arr[i-1][j].innerHTML){
                         if (t != -1){
-                            if (i == 2){
-                                var num = arr[i][x].firstChild.innerHTML - 0;
-                                arr[i-1][x].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
-                                arr[i][x].innerHTML = '';
-                            } 
-                            else {
-                                break;
-                            }
+                            break;
                         }
-                        else{
-                            var num = arr[i][x].firstChild.innerHTML - 0;
-                            arr[i-1][x].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
-                            arr[i][x].innerHTML = '';
-                            t ++;
+                        if (i == 1 && arr[i+1][j].innerHTML !== ''  && arr[i+2][j].innerHTML !== '' && arr[i+1][j].innerHTML === arr[i+2][j].innerHTML){
+                            var nun = arr[i+2][j].firstChild.innerHTML - 0;
+                            arr[i+1][j].innerHTML = '<div class="div s'+ 2 * nun +'">' + 2 * nun + '</div>';
+                            arr[i+2][j].innerHTML = '';
                         }
+                        var num = arr[i][j].firstChild.innerHTML - 0;
+                        arr[i-1][j].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
+                        arr[i][j].innerHTML = '';
+                        t ++;
                     }
                 }
             }
@@ -116,32 +114,30 @@ function up(){
 
 //下移动
 function down(){
-    for (var j = 2; j >= 0; j --){
+    for (var j = 3; j >= 0; j --){
         var t = -1;
-        for (var x = 3; x >= 0; x --){
-            if (arr[j][x].innerHTML !== ''){
-                for (var i = j; i <= 2; i ++){
-                    if (arr[i+1][x].innerHTML === ''){
-                        var num = arr[i][x].innerHTML;
-                        arr[i+1][x].innerHTML = num;
-                        arr[i][x].innerHTML = '';
-                    } else if (arr[i][x].innerHTML === arr[i+1][x].innerHTML){
+        for (var x = 2; x >= 0; x --){
+            if (arr[x][j].innerHTML !== ''){
+                for (var i = x; i <= 2; i ++){
+                    if (arr[i+1][j].innerHTML === ''){
+                        var num = arr[i][j].innerHTML;
+                        arr[i+1][j].innerHTML = num;
+                        arr[i][j].innerHTML = '';
+                    } 
+                    else 
+                    if (arr[i][j].innerHTML === arr[i+1][j].innerHTML){
                         if (t != -1){
-                            if (i == 1){
-                                var num = arr[i][x].firstChild.innerHTML - 0;
-                                arr[i+1][x].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
-                                arr[i][x].innerHTML = '';
-                            } 
-                            else {
-                                break;
-                            }
-                        } 
-                        else {
-                            var num = arr[i][x].firstChild.innerHTML - 0;
-                            arr[i+1][x].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
-                            arr[i][x].innerHTML = '';
-                            t ++;
+                            break;
                         }
+                        if (i == 2 && arr[i-1][j].innerHTML !== ''  && arr[i-2][j].innerHTML !== '' && arr[i-1][j].innerHTML === arr[i-2][j].innerHTML){
+                            var nun = arr[i-2][j].firstChild.innerHTML - 0;
+                            arr[i-1][j].innerHTML = '<div class="div s'+ 2 * nun +'">' + 2 * nun + '</div>';
+                            arr[i-2][j].innerHTML = '';
+                        }
+                        var num = arr[i][j].firstChild.innerHTML - 0;
+                        arr[i+1][j].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
+                        arr[i][j].innerHTML = '';
+                        t ++;
                     }
                 }
             }
@@ -162,23 +158,20 @@ function left(){
                             e[i].innerHTML = num;
                             e[i+1].innerHTML = '';
                         } 
-                        else if (e[i].innerHTML === e[i+1].innerHTML){
+                        else 
+                        if (e[i].innerHTML === e[i+1].innerHTML){
                             if (t != -1){
-                                if (i == 1){
-                                    var num = e[i+1].firstChild.innerHTML - 0;
-                                    e[i].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
-                                    e[i+1].innerHTML = '';
-                                } 
-                                else {
-                                    break;
-                                }
+                                break;
                             }
-                            else{
-                                var num = e[i+1].firstChild.innerHTML - 0;
-                                e[i].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
-                                e[i+1].innerHTML = '';
-                                t ++;
+                            if (i == 0 && el[i+2].innerHTML !== ''  && el[i+3].innerHTML !== '' && el[i+2].innerHTML === el[i+3].innerHTML){
+                                var nun = e[i+3].firstChild.innerHTML - 0;
+                                e[i+2].innerHTML = '<div class="div s'+ 2 * nun +'">' + 2 * nun + '</div>';
+                                e[i+3].innerHTML = '';
                             }
+                            var num = e[i+1].firstChild.innerHTML - 0;
+                            e[i].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
+                            e[i+1].innerHTML = '';
+                            t ++;
                         }
                     }
                 }
@@ -199,23 +192,20 @@ function right(){
                         el[i+1].innerHTML = num;
                         el[i].innerHTML = '';
                     }
-                    else if (el[i].innerHTML === el[i+1].innerHTML){
+                    else 
+                    if (el[i].innerHTML === el[i+1].innerHTML){
                         if (t != -1){
-                            if (i == 1){
-                                    var num = el[i].firstChild.innerHTML - 0;
-                                    el[i+1].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
-                                    el[i].innerHTML = '';
-                                } 
-                                else {
-                                    break;
-                                }
+                            break;
                         }
-                        else{
-                            var num = el[i].firstChild.innerHTML - 0;
-                            el[i+1].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
-                            el[i].innerHTML = '';
-                            t ++;
+                        if (i == 2 && el[i-1].innerHTML !== ''  && el[i-2].innerHTML !== '' && el[i-1].innerHTML === el[i-2].innerHTML){
+                            var nun = el[i-1].firstChild.innerHTML - 0;
+                            el[i-2].innerHTML = '<div class="div s'+ 2 * nun +'">' + 2 * nun + '</div>';
+                            el[i-1].innerHTML = '';
                         }
+                        var num = el[i].firstChild.innerHTML - 0;
+                        el[i+1].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
+                        el[i].innerHTML = '';
+                        t ++;
                     }
                 }
             }
