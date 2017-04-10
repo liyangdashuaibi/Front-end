@@ -127,7 +127,7 @@ function down(){
                         arr[i][x].innerHTML = '';
                     } else if (arr[i][x].innerHTML === arr[i+1][x].innerHTML){
                         if (t != -1){
-                            if (i >= 1){
+                            if (i <= 1){
                                 var num = arr[i][x].firstChild.innerHTML - 0;
                                 arr[i+1][x].innerHTML = '<div class="div s'+ 2 * num +'">' + 2 * num + '</div>';
                                 arr[i][x].innerHTML = '';
