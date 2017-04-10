@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            html,body{
+                padding: 0;
+                margin: 0
+            }
+            #box{
+                margin: 20px auto;
+                padding: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                align-items: center;
+                width: 360px;
+                height: 360px;
+                border: 1px solid darkcyan;
+                border-radius: 5px;
+            }
+            #box .row{
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+            }
+            #box .col{
+                width: 80px;
+                height: 80px;
+                border: 1px solid sandybrown;
+                border-radius: 10px;
+            }
+            .div{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                color: #fff;
+                border-radius: 10px;
+            }
+            .s2{
+                background: #918597;
+            }
+            .s4{
+                background: #6f6d85;
+            }
+
+            .s8{
+                background: #594c6d;
+            }
+
+            .s16{
+                background: #694d9f;
+            }
+
+            .s32{
+                background: #6f599c;
+            }
+
+            .s64{
+                background: #8552a1;
+            }
+
+            .s128{
+                background: #543044;
+            }
+
+            .s256{
+                background: #63434f;
+            }
+
+            .s512{
+                background: #7d5886;
+            }
+
+            .s1024{
+                background: #401c44;
+            }
+            .s2048{
+                background: #472d56;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='box'>
+            <div class='row'>
+                <div class='col'></div>
+                <div class='col'></div>
+                <div class='col'></div>
+                <div class='col'></div>
+            </div>
+            <div class='row'>
+                <div class='col'></div>
+                <div class='col'></div>
+                <div class='col'></div>
+                <div class='col'></div>
+            </div>
+            <div class='row'>
+                <div class='col'></div>
+                <div class='col'></div>
+                <div class='col'></div>
+                <div class='col'></div>
+            </div>
+            <div class='row'>
+                <div class='col'></div>
+                <div class='col'></div>
+                <div class='col'></div>
+                <div class='col'></div>
+            </div>
+        </div>
+
+        <script src="2048.js"></script>
+    </body>
+</html>
