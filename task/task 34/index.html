@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            ul,li{
+                padding: 0;
+                margin: 0;
+                list-style: none;
+            }
+            #vertical{
+                margin-top: 18px;
+                float: left;
+            }
+            #vertical li{
+                display: flex;
+                height: 41px;
+                align-items: center;
+                font-weight: bold;
+            }
+            #traverse{
+                display: flex;
+                margin-left: 8px;
+            }
+            #traverse li{
+                width: 41px;
+                text-align: center;
+                font-weight: bold;
+            }
+            table{
+                border-collapse: collapse;
+                position: relative;
+                float: left;
+            }
+            td{
+                border: 1px solid #000;
+                width: 40px;
+                height: 40px;
+                padding: 0;
+            }
+            #div{
+                width: 41px;
+                height: 41px;
+                background-color: blue;
+                position: absolute;
+                transition: all .5s;
+                left: 0;
+                top: 0;
+            }
+            #t{
+                width: 100%;
+                height: 20%;
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <ul id="vertical">
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+        </ul>
+        <ul id="traverse">
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+        </ul>
+        <table id="box">
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+        </table>
+        <div>通过方向键，WSAD，小键盘8456控制~</div>
+
+        <script>
+            var box = document.getElementById('box'),
+                rows = box.getElementsByTagName('tr');
+            //初始化布局
+            function layout(){
+                var div = document.createElement('div'),
+                    t = document.createElement('div');
+                for (var i = 0; i < rows.length; i ++){
+                    var td = ''
+                    for (var j = 0; j < rows.length; j ++){
+                        td += '<td></td>'
+                    }
+                    rows[i].innerHTML = td;
+                }
+                div.id = 'div';
+                div.style.transform = 'rotateZ(0deg)';
+                t.id = 't';
+                div.appendChild(t);
+                box.appendChild(div);
+                return div;
+            }
+            //随机定位
+            function rand(div){
+                    arr = [],
+                    o = 0,
+                    p = div.offsetWidth;
+                for (var i = 0; i < rows.length; i ++){
+                    arr.push(o);
+                    o += p;
+                }
+                div.style.left = arr[Math.round(Math.random()*10)] + 'px';
+                div.style.top = arr[Math.round(Math.random()*10)] + 'px';
+            }
+            //原地旋转函数
+            function sport(div,angle){
+                var trans = parseInt(div.style.transform.match(/[-]{0,1}\d+/g)[0]);
+                var x = trans + angle;
+                div.style.transform = 'rotateZ(' + x + 'deg)';
+            }
+            //移动函数
+            function move(div,t){
+                var  trans = t || parseInt(div.style.transform.match(/[-]{0,1}\d+/g)[0]);
+                switch (trans % 360){
+                    case 0:
+                        if (div.style.top === '0px'){
+                            return false;
+                        }
+                        div.style.top = (parseInt(div.style.top) - 41) + 'px';
+                        break;
+                    case 90:
+                    case -270:
+                        if (div.style.left === '369px'){
+                            return false;
+                        }
+                        div.style.left = (parseInt(div.style.left) + 41) + 'px';
+                        break;
+                    case 180:
+                    case -180:
+                        if (div.style.top === '369px'){
+                            return false;
+                        }
+                        div.style.top = (parseInt(div.style.top) + 41) + 'px';
+                        break;
+                    case 270:
+                    case -90:
+                        if (div.style.left === '0px'){
+                            return false;
+                        }
+                        div.style.left = (parseInt(div.style.left) - 41) + 'px';
+                        break;   
+                }
+            }
+            function init(){
+                var div = layout();
+                rand(div);
+                var timer = null;
+                document.onkeyup = function(e){
+                    switch (e.keyCode){
+                        case 40:sport(div,180);break;
+                        case 39:sport(div,90);break;
+                        case 37:sport(div,-90);break;
+                        case 38:move(div);break;
+                        case 87:move(div,360);break;
+                        case 83:move(div,180);break;
+                        case 65:move(div,270);break;
+                        case 68:move(div,90);break;
+                        case 100:div.style.transform = 'rotateZ(270deg)';move(div);break;
+                        case 101:div.style.transform = 'rotateZ(180deg)';move(div);break;
+                        case 102:div.style.transform = 'rotateZ(90deg)';move(div);break;
+                        case 104:div.style.transform = 'rotateZ(0deg)';move(div);break;
+                    }
+                }
+            }
+            init();
+        </script>
+    </body>
+</html>
