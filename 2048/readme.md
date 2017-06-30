@@ -2,7 +2,8 @@
 
 
 
-demo：  https://liyangdashuaibi.github.io/Front-end/
+demo：  https://liyangdashuaibi.github.io/Front-end/2048
+
 
 仿照2048游戏写的简易版2048
 
