@@ -1,8 +1,8 @@
 # UI组件之日历组件
 
-百度前端学院 日历组件任务
-
 demo：  https://liyangdashuaibi.github.io/Front-end/%E6%97%A5%E5%8E%86/
+
+百度前端学院 日历组件任务
 
 要求：
 组件默认一直呈显示状态
