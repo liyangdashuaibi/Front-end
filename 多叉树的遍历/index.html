@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body{
+                text-align: center;
+            }
+            #btn1,#btn2{
+                border: none;
+			    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+			    padding: 5px;
+			    cursor: pointer;
+			    background-color: #fff;
+                width: 60px;
+            }
+            #btn1{
+                margin-right: 50px;
+            }
+            div{
+                margin: 10px;
+                padding: 20px;
+                float: left;
+                border: 1px solid #330033;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="button" id='btn1' value='遍历'>
+        <input type="text" id='text'>
+        <input type="button" id='btn2' value='搜索'>
+        <div id='div'>
+            Super
+            <div>
+                Cat
+                <div>
+                    Appel
+                    <div>Pear</div>
+                    <div>Pig</div>
+                    <div>Cola</div>
+                    <div>Soccer</div>
+                </div>
+                <div>Phone</div>
+                <div>
+                    School
+                    <div>Book</div>
+                    <div>Cartoon</div>
+                </div>
+            </div>
+            <div>Fish</div>
+            <div>
+                Note
+                <div>
+                    Human
+                    <div>Code</div>
+                    <div>Operate</div>
+                    <div>Man</div>
+                </div>
+                <div>
+                    Program
+                    <div>
+                        Bement
+                        <div>Cat</div>
+                    </div>
+                    <div>Glass</div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var btn1 = document.getElementById('btn1'),
+                btn2 = document.getElementById('btn2'),
+                box = document.getElementById('div'),
+                arr = [],
+                timer;
+            btn1.onclick = function(){
+                ergodic();
+                Front(box);
+                change();
+            }
+            btn2.onclick = function(){
+                ergodic();
+                Front(box);
+                search();
+            }
+            function Front(el){
+                if(!(el == null)){
+                    arr.push(el);
+                    for(var i=0;i<el.children.length;i++){
+                        Front(el.children[i]);
+                    }
+                }
+            }
+            function ergodic(){
+                var arr1=[];
+                clearInterval(timer);
+                var div = document.getElementsByTagName('div');
+                for(var i=0;i<div.length;i++){
+                    div[i].style.backgroundColor = '#fff';
+                }
+                arr = arr1;
+            }
+            //遍历
+            function change(){
+                var i = 0;
+                var div=document.getElementsByTagName('div');
+                div[i].style.backgroundColor = '#ffd900';
+                timer = setInterval(function(){
+                    i++;
+                    if(i<arr.length){
+                        div[i].style.backgroundColor = '#ffd900';
+                        div[i-1].style.backgroundColor = '#fff';
+                    }else{
+                        clearInterval(timer);
+                        div[i-1].style.backgroundColor = '#fff';
+                    }
+                },300);
+            }
+            //搜索
+            function search(){
+                var i = 0;
+                var div=document.getElementsByTagName('div');
+                div[i].style.backgroundColor = '#ffd900';
+                timer = setInterval(function(){
+                    i++;
+                    var text = document.getElementById('text');
+                    if(i<arr.length){
+                        div[i].style.backgroundColor = '#ffd900';
+                        div[i-1].style.backgroundColor = '#fff';
+                        //获取文本node并判断是否 == text
+                        if(div[i].firstChild.nodeValue.trim() == text.value){
+                            div[i].style.backgroundColor = '#e2041b';
+                        }
+                        if(div[i-1].firstChild.nodeValue.trim() == text.value){
+                            div[i-1].style.backgroundColor = '#e2041b';
+                        }
+                    }else{
+                        clearInterval(timer);
+                        div[i-1].style.backgroundColor = '#fff';
+                    }
+                },300);
+            }
+        </script>
+    </body>
+</html>

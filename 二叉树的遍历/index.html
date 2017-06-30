@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            div{
+                margin: 10px;
+                padding: 20px;
+                float: left;
+                border: 1px solid #FF6633;
+            }
+            #btn{
+                width: 69%;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='box_1'>
+            <div>
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div id='btn'>
+            <input type='button' id='btn1' value='前遍历'>
+            <input type='button' id='btn2' value='中遍历'>
+            <input type='button' id='btn3' value='后遍历'>
+        </div>
+
+        <script>
+            var box_1=document.getElementsByClassName('box_1')[0],
+                btn1=document.getElementById('btn1'),
+                btn2=document.getElementById('btn2'),
+                btn3=document.getElementById('btn3'),
+                arr=[],
+                timer;
+            btn1.onclick=function(){
+                ergodic();
+                Front(box_1);
+                change();
+            }
+            btn2.onclick=function(){
+                ergodic();
+                Middle(box_1);
+                change();
+            }
+            btn3.onclick=function(){
+                ergodic();
+                Back(box_1);
+                change();
+            }
+            function ergodic(){
+                clearInterval(timer);
+                var div=document.getElementsByTagName('div');
+                for(var i=0;i<div.length;i++){
+                    div[i].style.backgroundColor='#fff';
+                }
+            }
+            //前
+            function Front(node){                         
+                arr.push(node);
+                var di=node.getElementsByTagName("*");
+                for(var i=0;i<di.length;i++){
+                    arr.push(di[i]);
+                }
+            }
+            //中（递归）
+            function Middle(node){
+                if(!(node==null)){
+                    Middle(node.firstElementChild);
+                    arr.push(node);
+                    Middle(node.lastElementChild);
+                }
+            }
+            //后（递归）
+            function Back(node){
+                if(!(node==null)){
+                    Back(node.firstElementChild);
+                    Back(node.lastElementChild);
+                    arr.push(node);
+                }
+            }
+            function change(){
+                var i=0;
+                arr[i].style.backgroundColor='#FF6666';
+                timer=setInterval(function(){
+                    i++;
+                    if(i<arr.length){
+                        arr[i].style.backgroundColor='#FF6666';
+                        arr[i-1].style.backgroundColor='#fff';
+                    }else{
+                        clearInterval(timer);
+                        arr[i-1].style.backgroundColor='#fff';
+                        arr.length = 0;
+                    }
+                },500)
+            }
+        </script>
+    </body>
+</html>
