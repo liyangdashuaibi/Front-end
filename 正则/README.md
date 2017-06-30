@@ -1,3 +1,6 @@
+demo：  https://liyangdashuaibi.github.io/Front-end/%E6%AD%A3%E5%88%99/ 
+（控制台查看输出）
+
 # 任务
 ## 背景介绍
 kindle 为亚马逊推出的一款电子阅读器，阅读过程中可对书籍内容进行标注，系统会把备注生成一个 Mycliping.txt 文件。
