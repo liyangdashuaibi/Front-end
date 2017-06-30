@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            table{
+                width: 450px;
+                background-color: #DDDDDD;
+                border: 2px solid #3399FF;
+                border-top: none;
+            }
+            #head{
+                width: 446px;
+                background-color: #DDDDDD;
+                overflow: hidden;
+                border: 2px solid #3399FF;
+                border-bottom: none;
+            }
+            #head>div{
+                float: left;
+            }
+            #month,#year{
+                display: flex;
+                cursor: pointer
+            }
+            #left,#right{
+                background-color: #C0C0C0;
+                padding-top: 2px;
+                height: 26px;
+                cursor: pointer;
+            }
+            #left{
+                margin-left: 35px;
+                margin-right: 76px;
+            }
+            #right{
+                margin-left: 76px;
+            }
+            #month{
+                margin-right: 5px;
+            }
+            #month input,#year input{
+                width: 80px;
+            }
+            .updown{
+                font-size: 1px;
+            }
+            .updown div{
+                background-color: #3399FF;
+                color: #fff;
+            }
+            td{
+                cursor: pointer;
+                text-align: center;
+                border: 1px solid #DDDDDD;
+            }
+            tr:nth-child(1){
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="head">
+            <div id="left">◀</div>
+            <div id="month">
+                <input type="text" readonly="value">
+                <div class="updown">
+                    <div>∧</div><div>∨</div>
+                </div>
+            </div>
+            <div id="year">
+                <input type="text" readonly="value">
+                <div class="updown">
+                    <div>∧</div><div>∨</div>
+                </div>
+            </div>
+            <div id="right">▶</div>
+        </div>
+        <table id="table">
+        </table>
+        
+        <script>
+            var $ = function(id){
+                return document.getElementById(id);
+            }
+            var getDays = function(month,year){
+                var date = new Date(year,month+1,0)
+                return date.getDate();
+            }
+            var getWeekDay = function(month,year){
+                var date = new Date(year,month,1)
+                return date.getDay();
+            }
+            var today = function(){
+                var date = new Date();
+                return date;
+            }
+            var month_div = $('month'),
+                year_div = $('year'),
+                table = $('table');
+            var month_text = month_div.getElementsByTagName('input')[0],
+                year_text = year_div.getElementsByTagName('input')[0];
+            var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            var yclicks = function(i,months){
+                var m_text = parseInt(months.indexOf(month_text.value)),
+                    y_text = parseInt(year_text.value) + i;
+                month_text.value = m_text;
+                year_text.value = y_text;
+                head().make(m_text,y_text,colors);
+            }
+            var mclicks = function(i,months){
+                var m_text = parseInt(months.indexOf(month_text.value)) + i,
+                    y_text = parseInt(year_text.value);
+                if (m_text > months.length - 1){
+                    m_text = 0;
+                    y_text ++;
+                }
+                else if (m_text < 0){
+                    m_text = months.length - 1;
+                    y_text --;
+                }
+                month_text.value = m_text;
+                year_text.value = y_text;
+                head().make(m_text,y_text,colors);
+            }
+            var head = function(){
+                var make = function(month,year,fn){
+                    var date = new Date();
+                    if (year || month){
+                        date = new Date(year,month + 1,0);
+                    }
+                    var tmonth = month || date.getMonth(),
+                        tyear = year || date.getFullYear();
+                    tmonth = months[tmonth];
+                    month_text.value = tmonth;
+                    year_text.value = tyear;
+                    noum(date);
+                    if (fn){
+                        fn();
+                    }
+                }
+                var click = function(){
+                    var left = $('left'),right = $('right');
+                    var updown = document.getElementsByClassName('updown');
+                    //月的点击按钮声明
+                    var month_click = updown[0].getElementsByTagName('div'),
+                        month_clickup = month_click[0],
+                        month_clickdown = month_click[1];
+                    //年的点击按钮声明
+                    var year_click = updown[1].getElementsByTagName('div'),
+                        year_clickup = year_click[0],
+                        year_clickdown = year_click[1];
+                    year_clickup.onclick = function(){
+                        yclicks(-1,months)
+                    }
+                    year_clickdown.onclick = function(){
+                        yclicks(1,months)
+                    }    
+                    month_clickup.onclick = function(){
+                        mclicks(-1,months)
+                    }
+                    month_clickdown.onclick = function(){
+                        mclicks(1,months);
+                    }
+                    right.onclick = function(){
+                        mclicks(1,months);
+                    }
+                    left.onclick = function(){
+                        mclicks(-1,months)
+                    }
+                }
+
+                return{
+                    make: make,
+                    click: click
+                }
+            }
+            var noum = function(date){
+                var tday = getDays(date.getMonth(),date.getFullYear()),
+                    wday = getWeekDay(date.getMonth(),date.getFullYear());
+                    sday = getDays(date.getMonth() - 1,date.getFullYear()) + 1 - wday;
+                var weeks = ['日','一','二','三','四','五','六'];
+                var tab = '';
+                var l = 1,k = 1
+                for (var i = 0; i < 7; i ++){
+                    var tr = '';
+                    for (var j = 0; j < weeks.length; j ++){
+                        if (i == 0){
+                            tr += '<td>' + weeks[j] + '</td>';
+                        } 
+                        else if( i == 1 && j < wday){
+                            tr += '<td  style = "color:gray">' + sday + '</td>';
+                            sday ++;
+                        }
+                        else if(l > tday){
+                            tr += '<td style = "color:gray">' + k + '</td>';
+                            k ++;
+                        }
+                        else {
+                            tr += '<td>' + l + '</td>';
+                            l ++;
+                        }
+                    }
+                    tab += '<tr>' + tr + '</tr>';
+                }
+                table.innerHTML = tab;
+            }
+            var colors = function(){
+                var td = table.getElementsByTagName('td');
+                for (var i = 0; i < td.length; i ++){
+                    if (td[i].style.color != 'gray'){
+                        if (year_text.value == today().getFullYear() && months.indexOf(month_text.value) == today().getMonth() && parseInt(td[i].innerHTML) == today().getDate()){
+                            td[i].style.border = '1px solid red';
+                        }
+                        td[i].onclick = function(){
+                            for (var j = 0; j < td.length; j ++){
+                                td[j].style.border = '1px solid #DDDDDD';
+                            }
+                            this.style.border = '1px solid red';
+                        }
+                    }
+                }
+            }
+            head().make(false,false,colors);
+            head().click();
+        </script>
+    </body>
+</html>

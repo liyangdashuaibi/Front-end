@@ -1,0 +1,182 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: "SimHei";
+    font-size: 12px;
+}
+html,body{
+	height: 100%;
+	width: 100%;
+}
+/*----------------------------三个框架-------------------------------*/
+#dinglan{
+    height: 55px;
+    width: 100%;
+    background-color: #228abf;
+}
+#dinglan+div{
+    width: 100%;
+}
+#celan{
+	height: 755px;
+    float: left;
+    width: 20%;
+    background-color: #2a2e3d;
+}
+#zhengwen{
+    float: left;
+    width: 80%;
+    background-color: #ededec;
+}
+/*----------------------------顶栏-------------------------------*/
+#dinglan img{
+    float: left;
+    margin: 10px 0 0 50px;
+}
+#dinglan div{
+    float: right;
+    margin-top: 20px;
+}
+#dinglan div a{
+    font: 12px "SimHei";
+    color: #fff;
+    text-decoration: none;
+    background: url(../images/nine/login.png) no-repeat;
+    padding-left: 20px;
+    margin: 0 72px 0 21px;
+}
+/*----------------------------侧栏-------------------------------*/
+#celan .one{
+    box-shadow: 1px 1px #576477;
+    width: 100%;
+}
+#celan .one .diyi{
+    height: 100%;
+}
+#celan .one .qiu{
+    height: 48px;
+    width: 48px;
+    background: #2a2e3d;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    padding: 6px;
+    margin:  18px auto ;
+    margin-bottom: 0;
+}
+#celan .one .qiu1{
+    height: 48px;
+    width: 48px;
+    background-image: url(../../image/头像.png);
+    background-size: 100% 100%;
+    border-radius: 50%;
+}
+#celan .one .diyi span{
+    display: block;
+    padding-top: 10px;
+    color: #fff;
+    font: 15px "SimHei";
+    text-align: center;
+}
+#celan .one .dier{
+    height: 30px;
+    width: 110px;
+    padding: 22px 0 22px 0;
+    margin: 0 auto;
+}
+#celan .one .dier p{
+    font: 11px "SimHei";
+    float: left;
+    color: #fff;
+    text-align: center;
+}
+
+#celan .one .dier span{
+    float: left;
+    height: 30px;
+    width: 2px;
+    background: #fff;
+    margin: 0 30px;
+}
+#celan .tou{
+	background-color: #383d4e;
+	height: 82.2%;
+}
+#celan .two{
+    padding: 35px 0 0 45px;
+}
+#celan .two>ul{
+    list-style: none;
+    margin-left: 32px;
+}
+#celan .two p,#celan .two>ul>li{
+    font: 15px "SimHei";
+    margin-bottom: 25px;
+    color: #fff; 
+}
+#celan .two p{
+	cursor: pointer;
+    background: url(../images/nine/star.png) no-repeat 0 2px;
+    padding-left: 25px;
+}
+
+
+#celan .two .li{
+	position: relative;
+    /*background: url(../images/nine/close_arrow.png) no-repeat 0 3px;*/
+    padding-left: 12px;
+    color: #918597;
+}
+#celan .two .li span:nth-of-type(1){
+	position: absolute;
+	display: inline-block;
+	top: -8px;
+	left: 0;
+}
+#celan .two .li:last-child span{
+	position: absolute;
+	transform: rotate(90deg);
+	display: inline-block;
+	top: 12px;
+	left: 73px;
+}
+#celan .two ul li ul{
+    list-style: none;
+    margin-left: 12px;
+    display: block;
+}
+#celan .two ul li ul li{
+    margin-top: 15px;
+    background: url(../images/nine/doc_close.png) no-repeat 0 1px;
+    padding-left: 12px;
+}
+#celan .three{
+    padding:21px 0 0 45px;
+}
+#celan .three ul{
+    list-style: none;
+}
+#celan .three ul li{
+    margin-bottom: 37px;
+    background: url(../images/nine/star.png) no-repeat;
+    padding-left: 30px;
+    font-size: 12px;
+}
+#celan .three ul li a{
+    text-decoration: none;
+    color: #576477;
+}
+/*----------------------------正文-------------------------------*/
+#zhengwen .one{
+    height: 20px;
+    padding: 10px 0 0 30px;
+    background-color: #fff;
+}
+#zhengwen .one p{
+    color: #b7b7b7;
+}
+#zhengwen .one .g{
+    margin: 0 13px 0 13px;
+}
+#zhengwen .two{
+    padding: 20px 0 0 20px;
+}

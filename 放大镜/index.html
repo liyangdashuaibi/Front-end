@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            #box{
+                position: relative;
+                overflow: hidden;
+                padding: 0;
+                float: left;
+            }
+            #bin{
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: none;
+            }
+            #move{
+                display: none;
+                position: relative;
+                float: left;
+                width: 400px;
+                height: 400px;
+                overflow: hidden;
+                margin-left: 10px;
+            }
+            #imgz{
+                width: 400px;
+                height: 400px;
+            }
+            #imgs{
+                position: absolute;
+                width: 800px;
+                height: 800px;
+            }
+            #imgt{
+                width: 200px;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <img src="x.jpeg" id="imgz">
+            <div id="bin">
+                <img src="透明按钮3.png" id="imgt">
+            </div>
+        </div>
+        <div id="move">
+            <img src="x.jpeg" id="imgs">
+        </div>
+
+        <script>
+            var box = document.getElementById('box'),
+                bin = document.getElementById('bin'),
+                move = document.getElementById('move'),
+                imgs = document.getElementById('imgs');
+            box.onmouseover = function(){
+                bin.style.display = 'block';
+                move.style.display = 'block';
+            }
+            box.onmouseout = function(){
+                bin.style.display = 'none';
+                move.style.display = 'none';
+            }
+            box.onmousemove = function(e){
+                var left = e.clientX - bin.offsetWidth / 2,
+                    top = e.clientY - bin.offsetHeight / 2;
+                if (left <= 0){
+                    left = 0;
+                }
+                else if (left >= this.offsetWidth - bin.offsetWidth){
+                    left = this.offsetWidth - bin.offsetWidth;
+                }
+                if(top <= 0){
+                    top = 0;
+                }
+                else if (top >= this.offsetHeight - bin.offsetHeight){
+                    top = this.offsetHeight - bin.offsetHeight;
+                }
+                bin.style.left = left  + 'px';
+                bin.style.top = top  + 'px';
+                imgs.style.left = -left * 2 + 'px';
+                imgs.style.top = -top * 2 + 'px';
+            }
+        </script>
+    </body>
+</html>

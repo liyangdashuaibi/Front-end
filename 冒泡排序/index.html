@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style type="text/css">
+            #box{
+                width: 1220px;
+            }
+            #c{ 
+                font-size: 30px;
+                text-align: center;
+                padding: 0 15px;
+                margin: 2px 0;
+                margin-right: 10px;
+                height: 50px;
+                line-height: 50px;               
+                background-color: red;
+                color: #FFFFFF;
+                float: left;
+            }
+            #a{
+                margin: 2px 0;
+                margin-right: 3px;
+                width: 15px;
+                background-color: red;
+                display: inline-block;
+            }
+            input[type='button']{
+                border-radius: 5px;
+            }
+        </style>
+        <script src='js/move.js'></script>
+    </head>
+    <body>
+        <input type="text" id="input">
+        <input type="button" value="左侧入" id="zr">
+        <input type="button" value="右侧入" id="yr" style="margin-right: 25px">
+        <input type="button" value="左侧出" id="zc">
+        <input type="button" value="右侧出" id="yc">
+        <input type="button" value="排序" id="px">
+        <input type="button" value="随机重置50个" id="dl">
+        <input type="button" value="随机加10个" id="jia">
+        <div id="box">
+        </div>
+        <script>
+           function id(id){
+               return document.getElementById(id);
+           }
+           var txt=id('input'),box=id('box'),zr=id('zr'),zc=id('zc'),yr=id('yr'),yc=id('yc'),px=id('px'),dl=id('dl'),jia=id('jia');
+
+           var panduan=function(){
+               if(!txt.value.trim().match(/^\d+$/)){
+                    alert('只能输入正整数哦~');
+                    return false;
+               }else if(Number(txt.value.trim())<10||Number(txt.value.trim())>100){
+                   alert('数值在10-100之间');
+                   return false;
+               }else if(box.children.length>=60){
+                   alert('最多只能输入'+box.children.length+'个哦');
+                   return false;
+               }else{
+                   return true;
+               }                 
+           }
+
+           px.onclick=function(){
+                var div=document.getElementById('box').getElementsByTagName('div');
+                var arr=[];
+                for(var i=0;i<div.length;i++){
+                    arr.push(parseInt(box.children[i].offsetHeight));
+                }
+                var le=arr.length,
+                    i=0,
+                    j=0,
+                    t;
+                var clear=setInterval(function(){
+                    if(i<le){
+                        if(j<le-i-1){
+                            if(arr[j]>arr[j+1]){
+                                t=arr[j];
+                                arr[j]=arr[j+1];
+                                arr[j+1]=t;
+                                div[j].style.height=arr[j]+'px';
+                                div[j+1].style.height=arr[j+1]+'px';
+                            }
+                            j++;
+                            return;
+                        }else{
+                            j=0;
+                        }
+                        i++;
+                    }else{
+                        clearInterval(clear);
+                    }
+                },10)
+           }
+
+           var z=function(){
+               if(!panduan()==true) return;
+               var div=document.createElement('div');
+               div.id='a';
+               div.style.height=parseInt(txt.value.trim())*4+'px';
+               box.insertBefore(div,box.children[0]);
+           } 
+           zr.onclick=z;
+
+           yr.onclick=function(){
+               if(!panduan()==true) return;
+               var div=document.createElement('div');
+               div.id='a';
+               div.style.height=parseInt(txt.value.trim())*4+'px';
+               box.appendChild(div);
+           }
+
+           zc.onclick=function(){
+               box.removeChild(box.children[0]);
+           }
+
+           yc.onclick=function(){
+               box.removeChild(box.lastElementChild);
+           }
+
+           var daluan=function(){
+               box.innerHTML='';
+               for(var i=0;i<50;i++){
+                   txt.value=parseInt(Math.random()*90+10);
+                   z();
+               }
+           }
+
+           dl.onclick=daluan;
+
+           jia.onclick=function(){
+               if(box.children.length>=60){
+                   alert('最多只能输入'+box.children.length+'个哦');
+                   return;
+               }
+               for(var i=0;i<10;i++){
+                   txt.value=parseInt(Math.random()*90+10);
+                   z();
+               }
+           }
+
+           window.onload=function(){
+               daluan();
+           }
+        </script>
+    </body>
+</html>

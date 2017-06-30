@@ -1,0 +1,102 @@
+ <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            div{
+                margin: 10px;
+                padding: 20px;
+                float: left;
+                border: 1px solid #330033;
+                cursor: pointer; 
+            }
+        </style>
+    </head>
+    <body>
+        <div id='box'>
+            Super
+            <div>
+                Cat
+                <div>
+                    Appel
+                    <div>Pear</div>
+                    <div>Pig</div>
+                    <div>Cola</div>
+                    <div>Soccer</div>
+                </div>
+                <div>Phone</div>
+                <div>
+                    School
+                    <div>Book</div>
+                    <div>Cartoon</div>
+                </div>
+            </div>
+            <div>Fish</div>
+            <div>
+                Note
+                <div>
+                    Human
+                    <div>Code</div>
+                    <div>Operate</div>
+                    <div>Man</div>
+                </div>
+                <div>
+                    Program
+                    <div>
+                        Bement
+                        <div>Cat</div>
+                    </div>
+                    <div>Glass</div>
+                </div>
+            </div>
+        </div>
+        <input type='text' id='text'>
+        <input type='button' id='add' value='增加元素'>
+        <input type='button' id='del' value='删除元素'>
+
+        <script>
+            var box=document.getElementById('box'),
+                del=document.getElementById('del'),
+                add=document.getElementById('add'),
+                arr=[],
+                t;
+            window.onload=function(){
+                Front(box);
+                Choice();
+            }
+            function Front(node){
+                if(!(node == null)){
+                    arr.push(node);
+                    for(var i=0;i<node.children.length;i++){
+                        Front(node.children[i]);
+                    }
+                }
+            }
+            function Choice(){
+                for(var i=0;i<arr.length;i++){
+                    arr[i].onclick=function(event){
+                        for(var j=0;j<arr.length;j++){
+                            arr[j].style.backgroundColor='#fff';
+                        }
+                        this.style.backgroundColor='#d3381c';
+                        //阻止事件流向上查找
+                        event.stopPropagation();
+                        t=this;
+                    }   
+                }
+            }
+            del.onclick=function(){
+                var parent=t.parentNode;
+                parent.removeChild(t);
+            }
+            add.onclick=function(){
+                 var text=document.getElementById('text');
+                 var div=document.createElement('div');
+                 div.innerHTML=text.value;
+                 t.appendChild(div);
+                 arr.push(div);
+                 Choice();
+            }
+        </script>
+    </body>
+</html>

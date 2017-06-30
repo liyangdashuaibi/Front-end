@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            #box div{
+                 font: 20px 'Microsoft YaHei';
+                 background: url(right.png) no-repeat left 50%;
+                 padding: 0 0 0 20px;
+                 cursor: pointer;
+            }
+            ul{
+                list-style: none;
+                margin: 0;
+                padding-left: 20px;
+                display: none;
+            }
+            li{
+                margin: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <input type='text' id='text'>
+        <input type='button' id='btn' value='搜索动漫'>
+        <input type='text' id='x'>
+        <input type='button' id='btn0' value='添加分类'>
+        <select>
+            <option>运动</option>
+            <option>搞笑</option>
+            <option>治愈</option>
+        </select>
+        <input type='text' id='y'>
+        <input type='button' id='btn1' value='添加动漫'>
+        <div id='box'>
+            <div>动漫分类</div>
+            <ul class='ul cate'>
+                <li>
+                    <div>运动</div>
+                    <ul>
+                        <li class='li'>灌篮高手</li>
+                        <li class='li'>排球少年</li>
+                        <li class='li'>飙速宅男</li>
+                    </ul>
+                </li>
+                <li>
+                    <div>搞笑</div>
+                    <ul class='ul'>
+                        <li class='li'>男子高中生的日常</li>
+                        <li class='li'>月刊少女野崎君</li>
+                        <li class='li'>濑户的花嫁</li>
+                    </ul>
+                </li>
+                <li>
+                    <div>治愈</div>
+                    <ul class='ul'>
+                        <li class='li'>白糖兔</li>
+                        <li class='li'>那就是声优</li>
+                        <li class='li'>她和她的猫</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <script>
+            var box=document.getElementById('box'),
+                cate=document.getElementsByClassName('cate')[0],
+                ul=document.getElementsByTagName('ul'),
+                li=box.getElementsByClassName('li'),
+                div=box.getElementsByTagName('div'),
+                btn=document.getElementById('btn'),
+                text=document.getElementById('text'),
+                btn0=document.getElementById('btn0'),
+                x=document.getElementById('x'),
+                select=document.getElementsByTagName('select')[0],
+                btn1=document.getElementById('btn1'),
+                y=document.getElementById('y'),
+                arr=[];
+            window.onload=function(){
+                Front();
+                clicked(div);
+                mouse_Keyboard();
+            }
+            //点击样式
+            function clicked(div){
+                for(var i=0;i<div.length;i++){
+                    ul[i].style.display='none';
+                    (function(j){
+                        div[j].onclick=function(){
+                            if(ul[j].style.display=='none'){
+                                ul[j].style.display='block';
+                                this.style.background='url(bottom.png) no-repeat left 50%';
+                            }else{
+                                ul[j].style.display='none';
+                                this.style.background='url(right.png) no-repeat left 50%';
+                            }
+                         }
+                    })(i)
+                }
+            }
+            function mouse_Keyboard(){
+                btn.onclick=function(){
+                    search();
+                }
+                text.onkeyup=function(event){
+                    if(event.keyCode==13){
+                        search();
+                    }
+                }
+                btn0.onclick=function(){
+                    categorize();
+                }
+                x.onkeyup=function(event){
+                    if(event.keyCode==13){
+                        categorize();
+                    }
+                }
+                btn1.onclick=function(){
+                    anima();
+                }
+                y.onkeyup=function(event){
+                    if(event.keyCode==13){
+                        anima();
+                    }
+                }
+            }
+            //初始li存入数组
+            function Front(){
+                var li=document.getElementsByClassName('li');
+                for(var i=0;i<li.length;i++){
+                    arr.push(li[i].innerHTML);
+                }
+            }
+            //检索动漫
+            function search(){
+                var txt=document.getElementById('text').value.trim();
+                initialize(li)
+                for(var i=0;i<li.length;i++){
+                    if(txt==''){
+                        return alert('不能为空');
+                    }else if(li[i].innerHTML.search(txt)!=-1){
+                        li[i].innerHTML=arr[i].replace(txt,'<span>'+txt+'</span>');
+                        li[i].parentNode.parentNode.parentNode.style.display='block';
+                        box.firstElementChild.style.background='url(bottom.png) no-repeat left 50%';
+                        li[i].parentNode.style.display='block';
+                        li[i].parentNode.parentNode.firstElementChild.style.background='url(bottom.png) no-repeat left 50%';
+                        var span=li[i].getElementsByTagName('span')[0];
+                        span.style.backgroundColor='#9ba88d';
+                    }
+                }
+                text.value='';
+            }
+            //初始化样式
+            function initialize(li){
+                for(var i=0;i<li.length;i++){
+                    if(li[i].getElementsByTagName('span')[0]!=null){
+                        li[i].innerHTML=arr[i];
+                    }
+                }
+            }
+            //添加分类
+            function categorize(){
+                var fresh=document.createElement('li');
+                fresh.innerHTML='<div>'+x.value+'</div>'+'<ul></ul>';
+                cate.appendChild(fresh);
+                //样式变更
+                var div=box.getElementsByTagName('div');
+                clicked(div);
+                for(var i=0;i<div.length;i++){
+                    div[i].style.background='url(right.png) no-repeat left 50%';
+                }
+                cate.style.display='block';
+                cate.parentNode.firstElementChild.style.background='url(bottom.png) no-repeat left 50%';
+                //添加select
+                var option=document.createElement('option');
+                option.innerHTML=x.value;
+                select.appendChild(option);
+                x.value='';
+            }
+            //添加动漫
+            function anima(){
+                console.log(select.value);                 
+                for(var i=0;i<div.length;i++){
+                    if(select.value==div[i].innerHTML){
+                        var fresh=document.createElement('li');
+                        fresh.className='li';
+                        fresh.innerHTML=y.value;
+                        if(!(ul[i].innerHTML=='')){
+                            var p=arr.indexOf(ul[i].lastElementChild.innerHTML);
+                            arr.splice(p+1,0,fresh.innerHTML);
+                        }else{
+                            arr.push(fresh.innerHTML);
+                        }
+                        ul[i].appendChild(fresh);
+                        box.firstElementChild.style.background='url(bottom.png) no-repeat left 50%';
+                        cate.style.display='block';
+                        div[i].style.background='url(bottom.png) no-repeat left 50%';
+                        ul[i].style.display='block';
+                    }
+                }
+                y.value='';
+            }
+        </script>
+    </body>
+</html> 

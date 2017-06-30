@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>表单</title>
+        <style>
+            #form{
+                width: 360px;
+            }
+            #ox,#form{
+                float: left;
+            }
+            #name{
+                width: 260px;
+                margin-bottom: 10px;
+            }
+            #select_type{
+                margin-left: 50px;
+                width: 100px;
+                padding-left: 10px;
+            }
+            input[type=number]{
+                width: 100px;
+            }
+            #btn,#reset{
+                margin-top: 10px;
+                color: blue;
+            }
+            #option{
+                display: none;
+            }
+            #select{
+                width: 260px;
+                border: 1px solid #C0C0C0;
+            }
+            #submit{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <form id='form'>
+            
+            <div id="type">
+                <fieldset>
+
+                    <legend>类型</legend>
+
+                    <input type="radio" id='text' name="type" value="输入框" checked="checked"> 
+                    <label for="text">输入框</label> 
+            
+                    <input type="radio" id='radio' name="type" value="单选框">
+                    <label for="radio">单选框</label>
+            
+                    <input type="radio" id='check' name="type" value="复选框">
+                    <label for="check">复选框</label>
+
+                    <input type="radio" id='downbox' name="type" value="下拉框">
+                    <label for="downbox">下拉框</label>
+
+                    <input type="radio" id='field' name="type" value="文本域">
+                    <label for="field">文本域</label>
+
+                </fieldset>
+            </div>
+            
+            <div id="config">
+                <fieldset>
+
+                    <legend>配置</legend>
+
+                    名称：<input type="text" id="name" value="姓名">
+
+                    <input type="radio" id="required" name="config" value="必填"  checked="checked">
+                    <label for='required'>必填</label>
+                    
+                    <input type="radio" id="optional" name="config" value="选填">
+                    <label for="optional">选填</label>
+
+                </fieldset>
+            </div>
+            
+            <div id="rule">
+                <fieldset>
+
+                    <legend>规则</legend>
+
+                    <input type="radio" id='words' name="rule" value="文字" checked="checked">
+                    <label for="words">文字</label>
+
+                    <input type="radio" id='number' name="rule" value="数字">
+                    <label for="number">数字</label>
+
+                    <input type="radio" id='email' name="rule" value="邮箱">
+                    <label for="email">邮箱</label>
+
+                    <input type="radio" id='phone' name="rule" value="手机号码">
+                    <label for="phone">手机号码</label>
+
+                    <input type="radio" id='password' name="rule" value="密码">
+                    <label for="password">密码</label>
+
+                </fieldset>
+            </div>
+
+            <div id="size">
+                <fieldset>
+
+                    <legend>长度限制</legend>
+
+                    字符范围：<input type="number" id="min_size" min="0" value="4">
+                    --
+                    <input type="number" id="max_size" min="0" value="16">
+
+                </fieldset>
+            </div>
+            
+            <div id="option">
+                <fieldset>
+
+                    <legend>选项</legend>
+
+                    <input type="text" id="select" placeholder="可用逗号，回车来分隔选项">
+
+                </fieldset>
+            </div>
+
+            <input type="button" id="btn" value="添加表单项">
+            <!--<input type="reset" id="reset" value="重置">-->
+        </form>
+        <form id="xo">
+            <div id="box"></div>
+            <input type="button" id="submit" value="提交">
+        </from>
+
+        <script>
+            var eventUtil = {
+                addEventHandler : function(element, type ,handler){
+                    if (element.addEventListener){
+                        element.addEventListener(type, handler);
+                    } 
+                    else
+                    if (element.attachEvent){
+                        element.attachEvent('on'+type, handler);
+                    } 
+                    else {
+                        element['on'+type] = handler;
+                    }
+                }
+            }
+
+            var btn = document.getElementById('btn'),
+                submit = document.getElementById('submit'),
+                type = document.getElementById('type'),
+                config = document.getElementById('config'),
+                rule = document.getElementById('rule'),
+                size = document.getElementById('size'),
+                option = document.getElementById('option');
+
+            //名称切换
+            function definition(){
+                var child = document.getElementById('form').getElementsByTagName('input');
+                for (var i = 0; i < child.length; i ++){
+                    if (child[i].type == 'radio' && child[i].name != 'config'){
+                        eventUtil.addEventHandler(child[i], 'click', function(){
+                            document.getElementById('name').value = this.value;
+                        })
+                    }
+                }
+            }
+
+            //获取选中了哪个类型
+            function typevalue(x, t){
+                var radios = x.getElementsByTagName('input');
+                for (var i = 0; i < radios.length; i++){
+                    if　(radios[i].name == t){
+                        if (radios[i].checked){
+                            return radios[i].value;
+                        }
+                    }
+                }
+            }
+
+            //页面切换
+            function page(){
+                var types = type.getElementsByTagName('input');
+                for (var i = 0; i < types.length; i++){
+                    if (types[i].name == 'type'){
+                        switch (types[i].value){
+                            case '输入框':
+                                eventUtil.addEventHandler(types[i], 'click', function(){
+                                    rule.style.display = 'block';    
+                                    size.style.display = 'block';
+                                    option.style.display = 'none';
+                                })
+                                break;
+                            case '单选框':
+                            case '复选框':
+                            case '下拉框':
+                                eventUtil.addEventHandler(types[i], 'click', function(){
+                                    rule.style.display = 'none';    
+                                    size.style.display = 'none';
+                                    option.style.display = 'block';
+                                })
+                                break;
+                            case '文本域':
+                                eventUtil.addEventHandler(types[i], 'click', function(){
+                                    rule.style.display = 'none';    
+                                    size.style.display = 'block';
+                                    option.style.display = 'none';
+                                })
+                                break;
+                        }
+                    }
+                }
+                var rules = rule.getElementsByTagName('input');
+                for (var i = 0; i < rules.length; i++){
+                    if (rules[i].name == 'rule'){
+                        switch (rules[i].value){
+                            case '文字':
+                            case '密码':
+                                eventUtil.addEventHandler(rules[i], 'click', function(){
+                                    size.style.display = 'block';
+                                })
+                                break;
+                            case '数字':
+                            case '邮箱':
+                            case '电话号码':
+                                eventUtil.addEventHandler(rules[i], 'click', function(){
+                                    size.style.display = 'none';
+                                })
+                                break;
+                        }
+                    }
+                }
+            }
+
+            //字符判断，如果有汉字则算两个字符
+            function character(str){
+                return str.replace(/[\u4e00-\u9fa5]/g,'11').length;
+            }
+
+            //数组删除指定元素
+            function removeByValue(arr, val) {
+                for(var i = 0; i < arr.length; i ++) {
+                    if (arr[i] == val) {
+                        arr.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+
+            //获取选项
+            var selec = [];
+            var getOption = function(){
+                eventUtil.addEventHandler(select, 'keyup', function(l){
+                    if (l.keyCode == 13 || l.keyCode == 188){
+                        var sl = select.value;
+                        var sl = sl.replace(/[,|，]/, '')
+                        select.value = '';
+                        if (sl == '' || selec.indexOf(sl) != -1){
+                            return;
+                        }
+                        selec.push(sl);
+                        var div = document.createElement('div');
+                        div.innerHTML = sl;
+                        div.style.color = '#fff';
+                        div.style.backgroundColor = '#b77b57';
+                        div.style.marginTop = '5px';
+                        div.style.width = '260px';
+                        div.style.border = '1px solid #b77b57';
+                        option.firstElementChild.appendChild(div);
+
+                        eventUtil.addEventHandler(div, 'mouseover', function(){
+                            div.innerHTML = '点击删除 ' + sl;
+                            div.style.backgroundColor = 'red';
+                        })
+
+                        eventUtil.addEventHandler(div, 'mouseout', function(){
+                            div.innerHTML = sl;
+                            div.style.backgroundColor = '#b77b57';
+                        })
+
+                        eventUtil.addEventHandler(div, 'click', function(){
+                            option.firstElementChild.removeChild(div);
+                            removeByValue(selec, sl)
+                        })
+                    }
+                })
+            }
+
+            function Surface(value ,name ,fill){
+                this.value = value;
+                this.name = name;
+                this.fill = fill;
+                this.type = 'text';
+                this.rules = this.fill + ',长度为4-16个字符';
+                this.success = '格式正确';
+                this.fail = this.name + '不能为空 !';
+                this.r = '文字';
+            }
+            
+            //表单类型判断
+            Surface.prototype.types = function(){
+                switch (this.value){
+                    case '输入框':
+                        this.type = 'text';
+                        break;
+                    case '单选框':
+                        this.type = 'radio';
+                        break;
+                    case '复选框':
+                        this.type = 'checkbox';
+                        break;
+                    case '下拉框':
+                        this.type = 'select';
+                        break;
+                    case '文本域':
+                        this.type = 'textarea';
+                        break;
+                }
+            }
+
+            //表单生成
+            var j = 0;
+            Surface.prototype.create = function(){
+                var box = document.getElementById('box');
+                var div = document.createElement('div');
+                div.style.marginTop = '10px';
+                this.div = div;
+                box.appendChild(div);
+                
+                var name = document.createElement('span');
+                name.innerHTML = this.name;
+                name.style.display = 'inline';
+                name.style.marginRight = '5px';
+                div.appendChild(name);
+
+                if (this.type == 'text' || this.type == 'password' || this.type == 'number'){
+                    var input = document.createElement('input');
+                    input.type = this.type;
+                    input.style.width = '200px';
+                    input.style.height = '20px';
+                    input.style.border = '1px solid #C0C0C0';
+                    this.input = input;
+                    div.appendChild(input);
+                }
+                if (this.type == 'radio' || this.type == 'checkbox'){
+                    for (var i = 0; i < selec.length; i ++){
+                        var input = document.createElement('input');
+                        var label = document.createElement('label');
+                        input.type = this.type;
+                        input.id = 'w' + i + j;
+                        input.value = selec[i];
+                        input.name = 'a' + j;
+                        label.innerHTML = selec[i];
+                        label.setAttribute('for', input.id);
+                        div.appendChild(input);
+                        div.appendChild(label);
+                    }
+                    j ++;
+                }
+                if (this.type == 'select'){
+                    var selcet = document.createElement('select'),
+                        opp = '';
+                    for (var i = 0; i < selec.length; i ++){
+                        var option = document.createElement('option');
+                        opp += '<option>' + selec[i] + '</option>';
+                    }
+                    selcet.innerHTML = opp;
+                    this.input = selcet;
+                    div.appendChild(selcet);
+                }
+                if (this.type == 'textarea'){
+                    var area = document.createElement('textarea');
+                    this.max = document.getElementById('max_size').value;
+                    this.min = document.getElementById('min_size').value;
+                    this.input = area;
+                    div.appendChild(area)
+                }
+
+                var note = document.createElement('div');
+                note.style.display = 'block';
+                if (this.type == 'radio'){
+                    this.rules = this.fill + ',请选择您的单选框';
+                }
+                else
+                if (this.type == 'checkbox'){
+                    this.rules = this.fill + ',请选择您的多选框';
+                }
+                else
+                if(this.type == 'select'){
+                    this.rules = this.fill + ',请选择您的下拉框';
+                }
+                else
+                if(this.type == 'textarea'){
+                    this.rules = this.fill + ',请选择您的文本域';
+                }
+                else{
+                    note.style.display = 'none';
+                }
+                note.innerHTML = this.rules;
+                note.style.fontSize = '15px';
+                note.style.color = '#C0C0C0';
+                note.style.marginLeft = '38px';
+                this.note = note;
+                div.appendChild(note);
+            }
+
+            //表单验证
+            Surface.prototype.configs = function(){
+                var self = this;
+                if (self.type == 'text' || self.type == 'number' || self.type == 'password'){
+                    eventUtil.addEventHandler(self.input, 'blur', function(){
+                        var len = character(self.input.value);
+                        if (self.fill == '必填'){
+                            if (len == 0){
+                                self.input.style.borderColor = 'red';
+                                self.note.innerHTML = '不能为空！就算你最小字数是0,但你选的是必填！';
+                                self.note.style.color = 'red';
+                            }
+                            switch (self.r){
+                                case '文字':
+                                    if (len < self.min){
+                                        self.input.style.borderColor = 'red';
+                                        self.note.innerHTML = '字数不够';
+                                        self.note.style.color = 'red';
+                                    }
+                                    else 
+                                    if (len >= self.min && len < self.max){
+                                        self.input.style.borderColor = 'green';
+                                        self.note.innerHTML = '输入正确';
+                                        self.note.style.color = 'green';
+                                    }
+                                    else 
+                                    if (len > self.max){
+                                        self.input.style.borderColor = 'red';
+                                        self.note.innerHTML = '超出字数限制';
+                                        self.note.style.color = 'red';
+                                    }
+                                    break;
+                                case '数字':
+                                    if (self.input.value != ''){
+                                        self.input.style.borderColor = 'green';
+                                        self.note.innerHTML = '输入正确';
+                                        self.note.style.color = 'green';
+                                    }
+                                    break;
+                                case '邮箱':
+                                    if (self.reg.test(self.input.value)){
+                                        self.input.style.borderColor = 'green';
+                                        self.note.innerHTML = '输入正确';
+                                        self.note.style.color = 'green';
+                                    } else {
+                                        self.input.style.borderColor = 'red';
+                                        self.note.innerHTML = '邮箱格式错误';
+                                        self.note.style.color = 'red';
+                                    }
+                                    break;
+                                case '手机号码':
+                                    if (self.reg.test(self.input.value)){
+                                        self.input.style.borderColor = 'green';
+                                        self.note.innerHTML = '输入正确';
+                                        self.note.style.color = 'green';
+                                    } else {
+                                        self.input.style.borderColor = 'red';
+                                        self.note.innerHTML = '手机号码格式错误';
+                                        self.note.style.color = 'red';
+                                    }
+                                    break;
+                                case '密码':
+                                    if (len < self.min){
+                                        self.input.style.borderColor = 'red';
+                                        self.note.innerHTML = '字数不够';
+                                        self.note.style.color = 'red';
+                                    }
+                                    else 
+                                    if (len >= self.min && len < self.max){
+                                        if (self.reg.test(self.input.value)){
+                                            self.input.style.borderColor = 'green';
+                                            self.note.innerHTML = '输入正确';
+                                            self.note.style.color = 'green';
+                                        }
+                                        else {
+                                            self.input.style.borderColor = 'red';
+                                            self.note.innerHTML = '密码格式错误';
+                                            self.note.style.color = 'red';
+                                        }
+                                    }
+                                    else 
+                                    if (len > self.max){
+                                        self.input.style.borderColor = 'red';
+                                        self.note.innerHTML = '超出字数限制';
+                                        self.note.style.color = 'red';
+                                    }
+                                    break;
+                                
+                            }
+                        }
+                        if (self.fill == '选填'){
+                            self.input.style.borderColor = 'green';
+                            self.note.innerHTML = '输入完成,顺便一提选填就是瞎填';
+                            self.note.style.color = 'green';
+                        }   
+                    })
+                    eventUtil.addEventHandler(self.input, 'focus', function(){
+                        self.note.style.display = 'block';
+                        self.note.innerHTML = self.rules;
+                        self.input.style.border = '1px solid #C0C0C0';
+                        self.note.style.color = '#C0C0C0';
+                    })
+                }
+                if (self.type == 'radio'){
+                    for (var i = 0; i < self.div.children.length; i ++){
+                        if (self.div.children[i].type == 'radio'){
+                           eventUtil.addEventHandler (self.div.children[i], 'click', function(){
+                               self.note.innerHTML = '单选框已选择';
+                               self.note.style.display = 'block';
+                               self.note.style.color = 'green';
+                           })
+                        }
+                    }
+                }
+                if (self.type == 'checkbox'){
+                    for (var i = 0; i < self.div.children.length; i ++){
+                        if (self.div.children[i].type == 'checkbox'){
+                            eventUtil.addEventHandler (self.div.children[i], 'focus', function(){
+                                self.note.innerHTML = '多选框已选择';
+                                self.note.style.color = 'green';
+                            })
+                            eventUtil.addEventHandler (self.div.children[i], 'click', function(){
+                                for (var j = 0; j < self.div.children.length; j++){
+                                    if (self.div.children[j].type == 'checkbox'){
+                                        if (self.div.children[j].checked != ''){
+                                            return;
+                                        }
+                                    }
+                                }
+                                 if (self.fill == '选填'){
+                                     self.note.innerHTML = self.rules;
+                                     self.note.style.color = '#C0C0C0';
+                                    return;
+                                }
+                                self.note.innerHTML = '多选框未选择';
+                                self.note.style.color = 'red';
+                            })
+                        }
+                    }
+                }
+                if (self.type == 'select'){
+                    eventUtil.addEventHandler (self.input, 'change', function(){
+                        self.note.innerHTML = '下拉框已选择';
+                        self.note.style.color = 'green';
+                    })
+                }
+                if (self.type == 'textarea'){
+                    eventUtil.addEventHandler(self.input, 'blur', function(){
+                        var len = character(this.value);
+                        if (self.fill == '必填'){
+                            if (len < self.min){
+                                self.input.style.borderColor = 'red';
+                                self.note.innerHTML = '字数不够';
+                                self.note.style.color = 'red';
+                            } 
+                            else
+                            if (len >= self.min && len < self.max){
+                                self.input.style.borderColor = 'green';
+                                self.note.innerHTML = '输入正确';
+                                self.note.style.color = 'green';
+                            }
+                            else 
+                            if (len > self.max){
+                                self.input.style.borderColor = 'red';
+                                self.note.innerHTML = '超出字数限制';
+                                self.note.style.color = 'red';
+                            }
+                        }
+                        if (self.fill == '选填'){
+                            self.input.style.borderColor = '#C0C0C0';
+                            self.note.innerHTML = '已输入'+ len + '个字符';
+                            self.note.style.color = '#C0C0C0';
+                        }
+                    })
+                }
+            }
+
+            //text格式时的各类字符匹配
+            Surface.prototype.regular = function(){
+                var rul = typevalue(rule, 'rule');
+                switch (rul){
+                    case '文字':
+                        this.max = document.getElementById('max_size').value;
+                        this.min = document.getElementById('min_size').value;
+                        this.r = '文字'
+                        this.rules = this.fill + ',长度为' + this.min + '-' + this.max + '个字符';
+                        break;
+                    case '数字':
+                        this.r = '数字'
+                        this.type = 'number';
+                        this.rules = '请输入数字';
+                        break;
+                    case '邮箱':
+                        this.r = '邮箱'
+                        this.reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                        this.rules = '请输入正确格式的邮箱';
+                        break;
+                    case '手机号码':
+                        this.r = '手机号码'
+                        this.reg = /^((13[0-9]{1})|159|153)+\d{8}$/;
+                        this.rules = '请输入13开头的手机号码';
+                        break;
+                    case '密码':
+                        this.max = document.getElementById('max_size').value;
+                        this.min = document.getElementById('min_size').value;
+                        this.r = '密码'
+                        this.reg = /[A-Za-z0-9]/g;
+                        this.type = 'password';
+                        this.rules = this.fill + ',长度为' + this.min + '-' + this.max + '个英文、数字';
+                        break;
+                }
+            }
+
+            //添加按钮函数
+            function util(){
+                var value = typevalue(type, 'type');
+                var name = document.getElementById('name').value;
+                var fill = typevalue(config, 'config');
+                var surface = new Surface(value, name, fill);
+                surface.types();
+                if (surface.type == 'radio' || surface.type == 'checkbox' || surface.type == 'select'){
+                    if (selec.length <= 1){
+                        alert('只有一个或没有 选项 无法创建 \n单选框，复选框，下拉框');
+                        return;
+                    }
+                }
+                if (surface.type == 'text'){
+                    surface.regular();
+                }
+                surface.create();
+                surface.configs();
+                submit.style.display = 'block';
+            }
+
+            //添加按钮
+            btn.onclick = util;
+
+            //提交按钮
+            submit.onclick = function(){
+                var p = 0;
+                for (var i = 0,le = box.children.length; i < le; i++){
+                    var x =  box.children[i].children[2];
+                    if (x.style.display == 'block' && (x.style.color == 'green' || x.style.color == '#C0C0C0')){
+                        p ++;
+                    }
+                }
+                if (p == i){
+                    alert('提交成功～')
+                }
+                else{
+                    alert('提交失败,请检查表单的填写');
+                    return;
+                }
+            }
+
+            window.onload = function(){
+                definition();
+                page();
+                getOption();
+            }
+        </script>
+    </body>
+</html>
