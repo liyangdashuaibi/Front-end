@@ -2,6 +2,8 @@
 
 百度前端学院 听指令的小方块
 
+demo：  https://liyangdashuaibi.github.io/Front-end/%E5%88%A9%E7%94%A8CSS3%E8%BF%87%E6%B8%A1%E5%B1%9E%E6%80%A7%E7%9A%84%E7%A7%BB%E5%8A%A8/
+
 # 任务要求
 
 实现一个类似棋盘的格子空间，每个格子用两个数字可以定位，一个红正方形的DOM在这个空间内，正方形中的蓝色边表示这是他的正面，有一个input输入框
