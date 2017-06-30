@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+        	*{
+        		padding: 0;
+        		margin: 0;
+        	}
+        	#video{
+        		margin-left: -5px;
+        	}
+        	#controls{
+        		display: flex;
+        		align-items: center;
+        	}
+        	#progress_bar{
+        		margin-left: 20px;
+        		position: relative;
+        		display: inline-block;
+        		background-color: #DDDDDD;
+        		border-radius: 50px;
+        		height: 8px;
+        		width: 450px;
+        	}
+        	.spot{
+        		display: inline-block;
+        		position: absolute;
+        		width: 15px;
+        		height: 15px;
+        		border-radius: 50%;
+        		border: 1px solid #3399FF;
+        		background-color: #fff;
+        		top: -5px;
+        		left: -6px;
+        	}
+        	#curtime{
+        		margin-left: 20px;
+        	}
+        </style>
+    </head>
+    <body>
+        <div id="mediaplay">
+            <div id="video">
+                <video id="player" src="02.mp4" width="900" height="500">
+                    video player not available
+                </video>
+            </div>
+            <div id="controls">
+                <input type="button" value="播放" id="btn">
+                <span id="progress_bar">
+                	<div class="spot"></div>
+                </span>
+                <span id="curtime">00:00:00</span>/<span id="duration">00:00:00</span>
+            </div>
+        </div>
+
+        <script>
+            var $ = function(id){
+                return document.getElementById(id);
+            }
+            var player = $('player'),
+                btn = $('btn'),
+                curtime = $('curtime'),
+                duration = $('duration'),
+                progress_bar = $('progress_bar'),
+                spot = document.getElementsByClassName('spot')[0];
+            
+            function getStyle(obj,attr){
+            	return getComputedStyle(obj,false)[attr];
+            }
+                
+            //将秒数转换成时:分:秒的格式    
+            function time(t){
+            	var second = parseInt(t),
+            		minute = 0,
+            		hour = 0;
+            	if (second >= 60){
+            		minute = parseInt(second / 60);
+            		second = parseInt(second % 60);
+            		if (minute >= 60){
+            			hour = parseInt(minute / 60);
+            			minute = parseInt(minute % 60);
+            		}
+            	}
+            	if (second < 10){
+            		second = '0' + second;
+            	}
+            	if (minute < 10){
+            		minute = '0' + minute;
+            	}
+            	if (hour < 10){
+            		hour = '0' + hour;
+            	}
+            	var ser = hour + ':' + minute + ':' + second;
+            	return ser;            
+            }
+            
+            //进度条随视频进度而移动
+            function progressBar(){
+            	var schedule = progress_bar.offsetWidth;
+            	var setback = function(){
+            		var percent = player.currentTime / player.duration;
+            		spot.style.left = schedule  * percent - 6 + 'px';
+            	}
+            	return setback();
+            }
+            
+            //点击进度条视频移动
+            function progressMove(e){
+            	//相对progress_bar的坐标 = 鼠标位置 - 前面的样式宽度
+            	var edge = e.clientX - btn.offsetWidth - parseInt(getStyle(progress_bar,'marginLeft'));
+            	var percent = edge / progress_bar.offsetWidth;
+            	player.currentTime = player.duration * percent;
+            	progressBar();
+            }
+
+            window.onload = function(){
+            	duration.innerHTML = time(player.duration);
+            	var lin;
+                btn.onclick = function(){
+                    if (player.paused){
+                        player.play();
+                        this.value = '停止';
+                        var that = this;
+                        lin = setInterval(function(){
+		                	curtime.innerHTML = time(player.currentTime);
+		                	progressBar();
+		                	if (player.duration === player.currentTime){
+		                		that.value = '开始';
+		                		clearInterval(lin);
+		                	}
+		                },250)
+                    }
+                    else {
+                        player.pause();
+                        this.value = '播放';
+                        clearInterval(lin);
+                    }
+                }
+                progress_bar.onclick = function(e){
+                	progressMove(e);
+                }
+            }
+          
+        </script>
+    </body>
+</html>
