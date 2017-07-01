@@ -1,6 +1,6 @@
 # 自主新建表单+验证
 
-demo： https://liyangdashuaibi.github.io/Front-end/%E8%87%AA%E5%8A%A9%E6%96%B0%E5%BB%BA%E8%A1%A8%E5%8D%95+%E9%AA%8C%E8%AF%81/
+demo： https://thorliyang.github.io/Front-end/%E8%87%AA%E5%8A%A9%E6%96%B0%E5%BB%BA%E8%A1%A8%E5%8D%95+%E9%AA%8C%E8%AF%81/
 
 百度前端学院
 任务三十二：表单（四）实现表单自动生成工厂
