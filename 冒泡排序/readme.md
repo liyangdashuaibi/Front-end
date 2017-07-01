@@ -1,6 +1,6 @@
 # 利用冒泡可视化排序一个队列
 
-demo：  https://liyangdashuaibi.github.io/Front-end/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/
+demo：  https://thorliyang.github.io/Front-end/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/
 
 
  百度前端学院 基础JavaScript练习（二）
