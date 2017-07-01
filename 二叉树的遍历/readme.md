@@ -1,6 +1,6 @@
 # 二叉树的遍历
 
-demo：https://liyangdashuaibi.github.io/Front-end/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/
+demo：https://thorliyang.github.io/Front-end/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/
 
 百度前端学院  任务二十二 JavaScript和树（一）
 
