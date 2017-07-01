@@ -1,7 +1,7 @@
 # 听指令的小方块
 
 
-demo：  https://liyangdashuaibi.github.io/Front-end/%E5%88%A9%E7%94%A8CSS3%E8%BF%87%E6%B8%A1%E5%B1%9E%E6%80%A7%E7%9A%84%E7%A7%BB%E5%8A%A8/
+demo：  https://thorliyang.github.io/Front-end/%E5%88%A9%E7%94%A8CSS3%E8%BF%87%E6%B8%A1%E5%B1%9E%E6%80%A7%E7%9A%84%E7%A7%BB%E5%8A%A8/
 
 百度前端学院 听指令的小方块
 
