@@ -1,6 +1,6 @@
 # 实现一个浮出层的UI组件实现
 
-demo： https://liyangdashuaibi.github.io/Front-end/%E6%B5%AE%E5%87%BA%E5%B1%82/
+demo： https://thorliyang.github.io/Front-end/%E6%B5%AE%E5%87%BA%E5%B1%82/
 
 百度前端学院 任务37 实现一个浮出层的UI组件实现
 
