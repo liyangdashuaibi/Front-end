@@ -138,7 +138,7 @@ body{
     background: #472d56;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 400px) {
     body,.game-container {
         width: 380px;
         height:380px;
