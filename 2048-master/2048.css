@@ -140,19 +140,19 @@ body{
 
 @media screen and (max-width: 400px) {
     body,.game-container {
-        width: 380px;
-        height:380px;
+        width: 360px;
+        height:360px;
     }
     .grid {
-        width: 78px;
-        height: 78px;
-        line-height: 78px;
+        width: 73px;
+        height: 73px;
+        line-height: 73px;
         margin-top: 12px;
         font-size: 28px;
     }
 
     .row{
-        height: 92px;
+        height: 87px;
     }
 
     #header > h2 {
