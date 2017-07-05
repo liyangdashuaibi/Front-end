@@ -140,7 +140,7 @@ body{
 
 @media screen and (max-width: 400px) {
     body,.game-container {
-        width: 360px;
+        width: 200px;
         height:360px;
     }
     .grid {
