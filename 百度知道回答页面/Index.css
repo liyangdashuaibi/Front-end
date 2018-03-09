@@ -1,0 +1,435 @@
+body, p, ul, h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font: 14px '微软雅黑';
+}
+a {
+    text-decoration: none;
+}
+.box {
+    width: 1000px; margin: 0 auto;padding-top: 20px;
+}
+.box::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.box > div {
+    float: left;
+}
+.content {
+    width: 700px;
+    padding-right: 30px;
+    border-right: 1px solid #dae0e4;
+}
+.right {
+    width: 230px;
+    padding-left: 30px;
+}
+.right .sign {
+    padding: 20px 0;
+    overflow: hidden;
+    border-bottom: 1px solid #dae0e4;
+}
+.right .sign .button {
+    margin-top: 8px;
+}
+.right .sign .button a {
+    font-size: 14px;
+    color: #fff;
+    background: #4aca6d;
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    width: 78px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.right .sign > div {
+    float: left;
+}
+.right .sign .zhuce {
+    margin-left: 15px;
+    font-size: 13px;
+}
+.right .sign .zhuce a:hover {
+    text-decoration: underline;
+}
+.question {
+    padding-bottom: 10px;
+}
+.question h1 {
+    font-weight: normal;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+.qmark {
+    float: left;
+    font-size: 20px;
+    color: #A0AFB8;
+    border: 3px solid #A0AFB8;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+textarea {
+    resize: none;
+}
+.question .text p {
+    padding: 20px 0;
+    font-size: 15px;
+}
+.question .info::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.question .info .message {
+    font-size: 12px;
+    color: #9eadb6;
+    float: left;
+    margin-top: 7px;
+    position: relative;
+    width: 300px;
+}
+.question .info .message p {
+    display: inline-block;
+}
+.question .info .message .reportp {
+    cursor: pointer;
+    display: none;
+}
+.reportul {
+    display: none;
+    list-style: none;
+    position: absolute;
+    top: 15px;
+    left: 192px;
+    border: 1px solid #9eadb6;
+    padding: 2px 5px;
+    line-height: 22px;
+    color: #000;  
+}
+.reportul li:hover {
+    color: #35b558;
+    cursor: pointer;
+}
+.question .info .icon {
+    float: right;
+    overflow: hidden;
+}
+.question .info .icon a {
+    text-decoration: none;
+    float: left;
+    margin-left: 5px;
+    transition: transform .4s;
+    -moz-transition: transform .4s;
+    -webkit-transition: transform .4s;
+    -o-transition: transform .4s;
+    border: 1px solid rgb(210,210,210);
+    padding: 3px 3px;
+    border-radius: 50%;
+    fill: rgb(210,210,210);
+}
+.question .info .icon svg {
+    width: 20px;
+    height: 20px;
+}
+.question .info .icon a:hover {
+    fill: #33b358;
+    border-color: #33b358;
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg);     
+    -moz-transform:rotate(180deg);    
+    -webkit-transform:rotate(180deg); 
+    -o-transform:rotate(180deg);
+}
+.question .info .icon a span {
+    display: inline-block;
+}
+.question .better {
+    margin: 10px 0;
+}
+.question .better .button{
+    font-size: 14px;
+    width: 128px;
+    height: 34px;
+    padding: 0 15px;
+    display: inline-block;
+    border: 1px solid #dae0e4;
+    text-align: center;
+    line-height: 34px;
+    border-radius: 2px;
+    color: #35b558;
+    cursor: pointer;
+}
+.question .better .button:hover {
+    border-color: #35b558;
+}
+.question .better .button span {
+    font-size: 16px;
+    color: #9eadb6;
+    display: inline-block;
+    transform: rotate(0deg);
+}
+.question .hide {
+    display: none;
+}
+.question .hide::after {
+    content: '';
+    display: table;
+    clear: both
+}
+.question .hide p {
+    color: #9eadb6;
+}
+.question .hide .button {
+    margin-top: 10px;
+}
+.question .hide .button::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.question .hide .button div {
+    float: left;
+    padding: 0 10px;
+    border: 1px solid #CFD7DC;
+    border-radius: 3px;
+    height: 26px;
+    line-height: 26px;
+    margin: 0 10px 5px 0;
+    color: #9eadb6;
+    cursor: pointer;
+    font-size: 12px;
+}
+.question .hide a {
+    float: left;
+    display: block;
+    color: #000;
+    padding: 0 10px;
+    border: 1px solid #CFD7DC;
+    border-radius: 3px;
+    height: 26px;
+    line-height: 26px;
+    margin: 0 10px 5px 0;
+    cursor: pointer;
+    font-size: 12px;
+}
+.question .hide a:hover{
+    color: #35b558;
+    border: 1px solid #35b558;
+}
+.question .hide .area {
+    margin-top: 10px;
+    border: 1px solid #dae0e4;
+    background-color: #fff;
+    position: relative;
+    overflow: visible;
+    margin-bottom: 21px;
+    border-radius: 3px;
+}
+.question .hide .area h2 {
+    font-size: 12px;
+    cursor: default;
+    height: 45px;
+    /* background-color: #508B8B; */
+}
+.question .hide .area textarea {
+    width: 92.5%;
+    border: none;
+    height: 300px;
+    border-top: 1px solid #dae0e4;
+    padding: 8px 26.5px;
+    outline:none;
+    font-size: 30px;
+}
+.question .hide .submit {
+    float: right;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+.question .hide .submit .button {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    padding: 0 15px;
+    border-color: #4ACA6D;
+    background: #4ACA6D;
+    color: #fff;
+    margin-top: -1px;
+    margin-left: 10px;   
+}
+.answer {
+    padding-bottom: 20px;
+    border-bottom: 3px solid #C3D7E4;
+}
+.answer > div {
+    padding: 20px 0;
+    border-top: 1px solid #dae0e4;
+}
+.answer .first::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.answer .text {
+    padding: 20px 0;
+}
+.answer .infa p {
+    float: left;
+}
+.answer .infa p {
+    float: left;
+    display: inline-block;
+    font-size: 12px;
+    color: #9eadb6;
+}
+.answer .submit {
+    position: relative;
+    font-size: 12px;    
+}
+.answer .submit > div {
+    display: inline-block;
+    float: right;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.answer .submit .reportp {
+    display: none;
+}
+.answer .submit .reportul {
+    left: 431px;
+    font-size: 12px;
+}
+.answer .zan {
+    padding: 8px 30px;
+    border: 1px solid #9eadb6;
+    border-radius: 100px;
+    margin-top: -8px;
+    font-family: iknow-qb_home_icons;
+}
+.answer .zan > div {
+    display: inline-block;
+}
+.answer .zan .up, .answer .zan .down {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+.answer .zan .up {
+    padding-right: 18px;
+    border-right: 1px solid #9eadb6;
+    color: #33b358;
+    fill: #33b358;
+}
+.answer .zan .down {
+    padding-left: 18px;
+}
+.answer .zan span {
+    margin-left: 8px;
+    display: block;
+    width: 10px;
+}
+.answer .reply {
+    display: none;
+    margin-top: 50px;
+    text-align: center;
+    height: 100px;
+}
+.answer .reply textarea {
+    width: 80%;
+    height: 90px;
+}
+.answer .reply .button {
+    display: block;
+    width: 80px;
+    height: 28px;
+    line-height: 28px;
+    color: #fff;
+    background: #4dc86f;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 3px;
+    margin-left: 553px;
+    cursor: pointer;   
+}
+.bottom .heaad {
+    margin-top: 20px;
+    overflow: hidden;
+    font-weight: normal;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dae0e4;
+}
+.bottom svg {
+    width: 30px;
+    height: 30px;
+    float: left;
+    fill: #7a8f9a;
+}
+.bottom .heaad div {
+    float: left;
+    margin-left: 10px;
+}
+.bottom .heaad a {
+    color: #000;
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 14px;
+}
+.bottom .heaad a:hover {
+    color: green;
+    text-decoration: underline;
+}
+.bottom .qu, .bottom .an {
+    padding: 25px 0;
+    border-bottom: 1px solid #dae0e4;
+}
+.bottom .qu_an .tou::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.bottom .qu_an .tou h2 {
+    margin-left: 15px;
+    float: left;
+    color: #7a8f9a;
+    font-weight: normal;
+}
+.bottom .qu_an .cont {
+    margin: 5px 0 0 45px;
+}
+.bottom .qu_an .cont > div + div {
+    margin-top: 8px;
+}
+.bottom .qu_an .cont a {
+    color: rgb(80,80,80);
+}
+.bottom .qu_an .cont a:hover {
+    color: green;
+    text-decoration: underline;
+}
+.bottom .qu_an .cont span {
+    float: right;
+    color: rgb(180,180,180);
+    font-size: 12px;
+}
