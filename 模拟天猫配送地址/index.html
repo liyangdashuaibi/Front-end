@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<head>
+    <title>suo!</title>
+    <meta character="utf-8" />
+    <style>
+	html, body, p, ul, li {
+	    margin: 0;
+	    padding: 0;
+	}
+	#box {
+	    width: 300px;
+	    margin: 0 auto;
+	}
+	#box::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+	#box ul {
+	    list-style: none;
+	}
+	#box ul::after{
+	    content: '';
+	    display: table;
+	    clear: both;
+	}
+	#box li {
+	    float: left;
+	}
+	#address {
+	    width: 350px;
+	    height: 250px;
+	    border: 1px solid #d2d2d2;
+		font-size: 14px;
+		display: none;
+		color: rgb(120,120,120);
+		clear: both;
+	}
+	#address .province, #city li {
+	    cursor: pointer;
+	    width: 66px;
+	    padding: 2px 2px;
+	    text-align: center;
+		border-radius: 1px;
+		margin-bottom: 5px;
+	}
+	#address .province {
+		position: relative;
+	}
+	#address .province p:hover, .hoverr {
+		background-color: #78b902;
+		color: #fff;
+	}
+	#city {
+	    background-color: #fafafa;
+    	border: 1px solid #d2d2d2;
+	    width: 350px;
+	    float: left;
+		border-width: 1px 0;
+	}
+	#city li:hover {
+		background-color: #C0F066;
+		color: #383737;
+	}
+	#select {
+		display: flex;
+		width: 100px;
+		text-decoration: none;
+		font-size: 14px;
+		color: rgb(150, 150, 150);
+		align-items: center;
+		float: left;
+	}
+	#select span {
+		display: inline-block;
+		transform: rotate(90deg);
+		margin-top: 2px;
+	}
+	.triangle {
+		border-color: #FFF #FFF #d2d2d2;
+		border-style: solid;
+		border-width: 0 5px 5px;
+		position: absolute;
+		left: 50%;
+		margin-left: -5px;
+		margin-top: 2px;
+	}
+	.have {
+		display: block;
+		float: left;
+		font-size: 13px;
+		margin-top: 2px;
+	}
+    </style>
+</head>
+<body>
+    <div id="box">
+		<a id="select" href="javascript:;">
+			<strong>请选择地址</strong>&nbsp
+			<span>></span>
+		</a>
+		<span class="have"></span>
+		<ul id="address" style="display:none"></ul>
+    </div>
+
+    <script>
+		var addr = {
+			'湖刘': {
+			city: ['长沙','株洲','湘潭','衡阳','邵阳','岳阳','常德','张家界','益阳','郴州', '永州', '怀化','娄底','湘西'],
+			is: true
+			},
+			'湖北': {
+			city: ['武汉','黄石','十堰', '宜昌','襄阳','鄂州','荆门','孝感','荆州','黄冈','咸宁','随州','恩施','仙桃','潜江','天门'],
+			is: false
+			},
+			'湖东': {
+			city: ['长沙','株洲','湘潭','衡阳','邵阳','岳阳','常德','张家界','益阳','郴州', '永州', '怀化','娄底','湘西'],
+			is: true
+			},
+			'湖西': {
+			city: ['武汉','黄石','十堰', '宜昌','襄阳','鄂州','荆门','孝感','荆州','黄冈','咸宁','随州','恩施','仙桃','潜江','天门'],
+			is: false
+			},
+			'湖上': {
+			city: ['长沙','株洲','湘潭','衡阳','邵阳','岳阳','常德','张家界','益阳','郴州', '永州', '怀化','娄底','湘西'],
+			is: true
+			},
+			'湖下': {
+			city: ['武汉','黄石','十堰', '宜昌','襄阳','鄂州','荆门','孝感','荆州','黄冈','咸宁','随州','恩施','仙桃','潜江','天门'],
+			is: false
+			},
+			'湖中': {
+			city: ['长沙','株洲','湘潭','衡阳','邵阳','岳阳','常德','张家界','益阳','郴州', '永州', '怀化','娄底','湘西'],
+			is: true
+			},
+			'湖左': {
+			city: ['武汉','黄石','十堰', '宜昌','襄阳','鄂州','荆门','孝感','荆州','黄冈','咸宁','随州','恩施','仙桃','潜江','天门'],
+			is: false
+			},
+			'湖右': {
+			city: ['长沙','株洲','湘潭','衡阳','邵阳','岳阳','常德','张家界','益阳','郴州', '永州', '怀化','娄底','湘西'],
+			is: true
+			},
+			'湖前': {
+			city: ['武汉','黄石','十堰', '宜昌','襄阳','鄂州','荆门','孝感','荆州','黄冈','咸宁','随州','恩施','仙桃','潜江','天门'],
+			is: false
+			},
+			'湖南': {
+			city: ['长沙','株洲','湘潭','衡阳','邵阳','岳阳','常德','张家界','益阳','郴州', '永州', '怀化','娄底','湘西'],
+			is: true
+			}
+		}
+		window.onload = function(){
+			var select = document.getElementById('select'),
+				address = document.getElementById('address');
+			select.onclick = function(e){
+				if ( address.style.display == 'none' ){
+					address.style.display = 'block';
+				} else {
+					address.style.display = 'none';
+				}
+			}
+			add_addr( addr, address )
+
+			address.addEventListener('click', function(e){
+				var fy = e.target;
+				var parents = this.getElementsByClassName('province'),
+					mui_attr = this.getElementsByClassName('mui_attr');
+				if ( fy && fy.nodeName === 'P' ){
+					for ( let i = 0; i < parents.length; i ++ ){
+						parents[i].getElementsByTagName('p')[0].className = '';
+						if ( parents[i].getElementsByTagName('div')[0] ){
+							parents[i].removeChild( parents[i].getElementsByClassName('triangle')[0] )
+						}
+					}
+					fy.className += ' hoverr';
+					add_city( fy, parents, mui_attr, this, select )
+					fy.parentNode.innerHTML += '<div class="triangle"></div>'
+				}
+			})
+		}
+		function getStyle( obj, attr ){
+			return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj, false)[attr];
+		}
+		function getObjLength ( object ){
+			var count = 0;
+			for ( i in object ){
+				count ++;
+			}
+			return count;
+		}
+		function inde( element, parent ){
+			for ( let i = 0; i < parent.length; i++ ){
+				if ( element === parent[i] ){
+					return i;
+				}
+			}
+		}
+		function add_addr( object,element ){
+			var div = '',
+				count = 0;
+			for ( i in object ) {
+				count ++;
+				div += '<li class="province"><p>' + i + '</p></li>';
+				if ( ( count !== 0 && count % 5 === 0 ) || count === getObjLength( object ) ){
+					div += '<li class="mui_attr"></li>';
+				}
+			}
+			element.innerHTML = div;
+		}
+		function add_city( element, parent, mui_attr, address, selcet ){
+			for ( let i = 0; i < mui_attr.length; i++ ){
+				mui_attr[i].style.display = 'none';
+				if( mui_attr[i].innerHTML !== '' ){
+					mui_attr[i].removeChild( document.getElementById('city') )
+				}
+			}
+			var ul = '';
+			var elul = document.createElement('ul');
+			var name = element.innerText;
+
+			for ( let i = 0; i < addr[name].city.length; i++ ){
+				ul += '<li>' + addr[name].city[i] + '</li>';		
+			}
+			elul.innerHTML = ul;
+			elul.id = 'city';
+			var inx = inde( element.parentNode, parent ) + 1 ;
+			mui_attr[ Math.ceil( inx / 5 ) - 1 ].style.display = 'block';
+			mui_attr[ Math.ceil( inx / 5 ) - 1 ].appendChild( elul );
+
+			elul.addEventListener( 'click', function(e){
+				var fy = e.target,
+					have = document.getElementsByClassName('have')[0];
+				if ( fy && fy.nodeName === 'LI' ){
+					address.style.display = 'none';
+					selcet.getElementsByTagName('strong')[0].innerHTML = fy.innerText;
+					if ( addr[element.innerText].is ){
+						have.innerHTML = '有货'
+					} else {
+						have.innerHTML = '无货'
+					}
+				}
+			})
+		}
+    </script>
+</body>
