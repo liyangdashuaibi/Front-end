@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>gameCenter</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="../css/curr.css">
+	<link rel="stylesheet" href="../css/gameCenter.css">
+</head>
+<body>
+	<div class="box clearfix">
+		<div class="left">
+			<div class="banner">
+				<a href="javascript:;">
+					<img src="../images/gameBanner.octet-stream" alt="命运-冠位指定（Fate/GO）">
+					<span>命运-冠位指定（Fate/GO）</span>
+				</a>
+			</div>
+			<div class="brief clearfix">
+				<a href="javascript:;" title="碧蓝航线">
+					<img src="../images/gameL1.png" alt="碧蓝航线">
+					<span>碧蓝航线</span>
+				</a>
+				<a href="javascript:;" title="神代梦华潭">
+					<img src="../images/gameL2.jpg" alt="神代梦华潭">
+					<span>神代梦华潭</span>
+				</a>
+				<a href="javascript:;" title="魔法禁书目录">
+					<img src="../images/gameL3.png" alt="魔法禁书目录">
+					<span>魔法禁书目录</span>
+				</a>
+			</div>
+		</div>
+		<div class="right">
+			<a class="bbs" href="javascript:;">游戏论坛</a>
+			<div class="all">
+				<a href="javascript:;" data-img="../images/gameR1.png">嘣战纪</a>
+				<a href="javascript:;" data-img="../images/gameR2.png">为谁而炼金</a>
+				<a href="javascript:;" data-img="../images/gameR3.png">banG Dream</a>
+				<a href="javascript:;" data-img="../images/gameR4.png">神域召唤</a>
+				<a href="javascript:;" data-img="../images/gameR5.png">桃源乡</a>
+				<a href="javascript:;" data-img="../images/gameR6.png">决战！平安乡</a>
+				<a href="javascript:;" data-img="../images/gameR7.png">恋与制作人</a>
+			</div>
+		</div>
+		<div class="imgdiv" style="background-repeat:no-repeat"></div>
+	</div>
+
+	<script>
+		(function(){
+			var all = document.querySelector('.all'),
+				imgdiv = document.querySelector('.imgdiv');
+			all.addEventListener( "mouseover", function (e) {
+				var a = e.target;
+				if ( a.nodeName === 'A' ) {
+					imgdiv.style.background = 'url(' + a.dataset.img + ')';
+				}
+			})
+			all.addEventListener( "mouseout", function (e) {
+				var a = e.target;
+				if ( a.nodeName === 'A' ) {
+					imgdiv.style.background = 'none';
+				}
+			})
+		}())
+	</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+.live-box {
+	position: relative;
+	padding: 20px 0 20px 20px;
+	width: 504px;
+	background: #fff;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 1px 1px 3px rgba( 0, 0, 0, .4 );
+	font-family: "微软雅黑"
+}
+.live-lf {
+	float: left;
+	width: 254px;
+}
+.title {
+	font-size: 14px;
+	line-height: 15px;
+	color: #ea759f;
+}
+.live-lf .lf-list {
+	margin: 6px 0 0;
+	border-right: 1px solid #eaeaea;
+}
+.live-lf .lf-item{
+    display: inline-block;
+    position: relative;
+    margin: 10px 17px 0 0;
+    width: 64px;
+    height: auto;
+}
+.live-lf .lf-item img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.live-lf .lf-item i {
+	display: none;
+	position: absolute;
+	font-style: normal;
+	top: 0;
+	left: 0;
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	font-size: 15px;
+	color: #fff;
+    text-indent: 22px;
+    line-height: 64px;
+    font-weight: 700;
+    cursor: pointer;
+    background: rgba(0,0,0,.5);
+	animation: mymove .5s;
+	-webkit-animation: mymove .5s;
+}
+.live-lf .lf-item i:after {
+	content: '';
+	position: absolute;
+	left: 8px;
+	top: 27px;
+	width: 12px;
+	height: 12px;
+	background-color: #ff699e;
+	border-radius: 50%;
+	overflow: hidden;
+}
+@keyframes mymove{
+	0% {
+	    opacity: 0;
+	    -webkit-transform: scale(0);
+	    transform: scale(0);
+	}
+	50% {
+	    -webkit-transform: scale(1);
+	    transform: scale(1);
+	}
+	100% {
+	    opacity: 1;
+	    -webkit-transform: scale(1);
+	    transform: scale(1);
+	}
+}
+.live-lf .lf-item p {
+    padding: 0;
+    margin: 3px 0 0;
+    text-align: center;
+    color: #000;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.live-lr {
+	width: 250px;
+	float: right;
+}
+.title2 {
+	padding-left: 20px;
+}
+.live-lr .banner {
+    margin-top: 6px;
+}
+.live-lr .banner a {
+    display: block;
+    padding: 10px 21px;
+    width: 208px;
+    height: 80px;
+}
+.live-lr .banner a:hover {
+	background: #eaeaea;
+}
+.live-lr .banner a img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+}
