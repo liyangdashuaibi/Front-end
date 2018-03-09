@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            position: relative;
+            border: 1px solid #666;
+            width: 885px;
+            height: 460px;
+            margin: 30px auto;
+        }
+        #box::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+        #box div {
+            float: left;
+            width: 200px;
+            height: 130px;
+            border: 1px solid #333;
+            margin: 15px 0 0 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        #box div:nth-child(1) {
+            background-color: #ce5242;
+        }
+        #box div:nth-child(2) {
+            background-color: #96514d;
+        }
+        #box div:nth-child(3) {
+            background-color: #8b968d;
+        }
+        #box div:nth-child(4) {
+            background-color: #00a381;
+        }
+        #box div:nth-child(5) {
+            background-color: #474b42;
+        }
+        #box div:nth-child(6) {
+            background-color: #d3cfd9;
+        }
+        #box div:nth-child(7) {
+            background-color: #f08300;
+        }
+        #box div:nth-child(8) {
+            background-color: #f8e58c;
+        }
+        #box div:nth-child(9) {
+            background-color: #e09e87;
+        }
+        #box div:nth-child(10) {
+            background-color: #68be8d;
+        }
+        #box div:nth-child(11) {
+            background-color: #0095d9;
+        }
+        #box div:nth-child(12) {
+            background-color: #ca8269;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <script>
+        var box = document.getElementById('box'),
+            div = box.getElementsByTagName('div'),
+            posArr = [],
+            boxT = box.offsetTop,
+            boxL = box.offsetLeft,
+            zind = 10;
+        
+        var divLe = div.length;
+        for ( let i = 0; i < divLe; i ++ ) {
+            posArr.push( [ div[i].offsetTop, div[i].offsetLeft ] )
+        }
+
+        for ( let i = 0; i < divLe; i ++ ) {
+            div[i].style.position = 'absolute';
+            div[i].style.top = posArr[i][0] + 'px';
+            div[i].style.left = posArr[i][1] + 'px';
+            div[i].style.margin = '0'
+        }
+        
+        for ( let i = 0; i < divLe; i ++ ) {
+            div[i].onmousedown = function (e) {
+                var e = e || window.event;
+                var that = this;
+                e.preventDefault();
+
+                that.style.transition = 'none';
+                that.style.zIndex = ++ zind;
+                that.style.opacity = '0.9';
+
+                var selfy = that.offsetTop,
+                    selfx = that.offsetLeft;
+
+                //鼠标初始位置
+                var y0 = e.clientY,
+                    x0 = e.clientX;
+
+                document.onmousemove = function (e) {
+                    var e = e || window.event;
+                
+                    //鼠标移动位置
+                    var y1 = e.clientY,
+                        x1 = e.clientX;
+
+                    // ( 鼠标移动后的位置 - 鼠标初始位置 = 鼠标移动的距离 ) + 元素的偏移量 = 最终位置
+                    var yoffset = y1 - y0 + selfy,
+                        xoffset = x1 - x0 + selfx;
+
+                    that.style.top = yoffset + 'px';
+                    that.style.left = xoffset + 'px';
+
+                    for ( let j = 0; j < divLe; j ++ ) {
+                        div[j].style.transform = '';
+                    }
+
+                    for ( let j = 0; j < divLe; j ++ ) {
+                        if ( y1 - boxT > div[j].offsetTop && x1 - boxL > div[j].offsetLeft && 
+                             y1 - boxT < div[j].offsetTop + 130 && x1 - boxL < div[j].offsetLeft + 200 &&
+                             div[j] !== that) {
+                            div[j].style.transform = 'scale(1.05)';
+                        }
+                    }
+                }
+                document.onmouseup = function (e) {
+                    var y1 = e.clientY,
+                        x1 = e.clientX;
+                    for ( let j = 0; j < divLe; j ++ ) {
+                        div[j].style.opacity = '';
+                        div[j].style.transition = 'all .2s';
+                        div[j].style.transform = '';
+                    }
+                    for ( let j = 0; j < divLe; j ++ ) {
+                        if ( y1 - boxT > div[j].offsetTop && x1 - boxL > div[j].offsetLeft && y1 - boxT < div[j].offsetTop + 130 && x1 - boxL < div[j].offsetLeft + 200 && div[j] !== that ) {
+                            div[j].style.top = selfy + 'px';
+                            div[j].style.left = selfx + 'px';
+                            that.style.top = div[j].offsetTop + 'px';
+                            that.style.left = div[j].offsetLeft + 'px';
+                            break;
+                        } else {
+                            that.style.top = selfy + 'px';
+                            that.style.left = selfx + 'px';
+                        }
+                    }
+                    document.onmousemove = ''
+                }
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
