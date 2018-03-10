@@ -1,3 +1,3 @@
 # 基于canvas的截图功能
 
-demo： https://thorliyang.github.io/Front-end/截图/
+demo： https://thorliyang.github.io/Front-end/screenshot/
