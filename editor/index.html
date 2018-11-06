@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .emoji {
+            width: 300px; 
+        }
+        .emoji ul {
+            padding: 0;
+        }
+        .emoji ul::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+        .emoji li {
+            float: left;
+            list-style: none;
+        }
+        .easyEditor {
+            width: 300px;
+            height: 150px;
+            border: 1px solid #666;
+            border-radius: 10px;
+            padding: 10px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="emoji">
+            <ul>
+                <li>🐭</li>
+                <li>✈</li>
+            </ul>
+        </div>
+        <div id="easyEditor" contenteditable="true"></div>
+    </div>
+
+    <script src="emoji/emoji-list-with-image.js"></script>
+    <script src="easyEditor.js"></script>
+    <script>
+        // doument.ready()
+        (function () {
+            var ie = !!(window.attachEvent && !window.opera);
+            var wk = /webkit\/(\d+)/i.test(navigator.userAgent) && (RegExp.$1 < 525);
+            var fn = [];
+            var run = function () { for (var i = 0; i < fn.length; i++) fn[i](); };
+            var d = document;
+            d.ready = function (f) {
+                if (!ie && !wk && d.addEventListener)
+                    return d.addEventListener('DOMContentLoaded', f, false);
+                
+                if (fn.push(f) > 1) return;
+                if (ie) 
+                    (function () {
+                        try { d.documentElement.doScroll('left'); run(); }
+                        catch (err) { setTimeout(arguments.callee, 0); }
+                    })();
+                else if (wk)
+                    var t = setInterval(function () {
+                        if (/^(loaded|complete)$/.test(d.readyState))
+                        clearInterval(t), run();
+                    }, 0);
+            };
+        })();
+    </script>
+    <script>
+        // 生成IMG表情
+        var renderEmoji = (function () {
+            var emos = getEmojiList()[0];   //此处按需是否生成所有emoji
+            var html = '<ul class="clearfix">';
+            var le = emos.length;
+            le = 20;
+            for (var j = 0; j < le; j++) {
+                var emo = emos[j];
+                var data = 'data:image/png;base64,' + emo[2];
+                if (j % 20 == 0) {
+                    html += '<li class="first-letter">';
+                } else {
+                    html += '<li>';
+                }
+                html += '<img style="display: inline;vertical-align: middle;" src="' + data + '"  unicode16="' + emo[1] + '" /></li>';
+            }
+            return html;
+        })()
+        document.ready(function () {
+            // 引入表情
+            var emoji = document.querySelector('.emoji');
+            emoji.innerHTML = renderEmoji;
+
+            var editor = new EasyEditor('easyEditor');
+            emoji.addEventListener('click', function (e) {
+                var t = e.target;
+                if (t.nodeName === 'LI') {
+                    t = t.querySelector('img');
+                };
+                var src = t.getAttribute('src');
+                editor.insertEmoji({
+                    src: src
+                });
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>theory</title>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script src="theory.js"></script>
+    <script>
+        // function hello() {
+        //     console.log('hello')
+        // }
+        // var element = React.createElement('div', { id: 'test', onclick: hello }, 'click me');
+        // React.render(element, document.getElementById('container')); 
+
+        
+        
+        var HelloMessage = React.createClass({
+            getInitialState: function () {
+                return { type: 'say:' };
+            },
+            componentWillMount: function () {
+                console.log('我就要开始渲染了哦。。。')
+            },
+            componentDidMount: function () {
+                console.log('我已经渲染好了哦。。。')
+            },
+            render: function () {
+                return React.createElement("div", null, this.state.type, "Hello", this.props.name);
+            }
+        });
+
+        var hello = React.createClass({
+            render: function () {
+                return React.createElement(HelloMessage, { name: 'jack' })
+            }
+        })
+        
+        React.render(React.createElement(hello), document.getElementById("container"));
+    </script>
+</body>
+</html>
